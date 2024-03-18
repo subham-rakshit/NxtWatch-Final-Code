@@ -3,6 +3,8 @@ import {Component} from 'react'
 import Cookies from 'js-cookie'
 import {Redirect} from 'react-router-dom'
 
+import ThemeContext from '../../context/ThemeContext'
+
 import {
   LoginMainContainer,
   LoginContentCard,
@@ -14,10 +16,16 @@ import {
   ShowPasswordContainer,
   ShowPasswordLabelElem,
   LoginButton,
+  ErrorMsg,
 } from './styledComponent'
 
 class LoginRoute extends Component {
-  state = {usernameInput: '', passwordInput: '', isShowPassword: false}
+  state = {
+    usernameInput: '',
+    passwordInput: '',
+    isShowPassword: false,
+    errorMsg: '',
+  }
 
   // Submit From -->
 
@@ -28,6 +36,11 @@ class LoginRoute extends Component {
     })
     const {history} = this.props
     history.replace('/')
+  }
+
+  onSubmitFailure = errorMsg => {
+    // console.log(errorMsg)
+    this.setState({errorMsg})
   }
 
   onSubmitLoginForm = async event => {
@@ -52,97 +65,125 @@ class LoginRoute extends Component {
     }
   }
 
-  //   Username Input -->
-
-  getUpdateUsername = event => {
-    this.setState({usernameInput: event.target.value})
-  }
-
-  renderUsernameInput = () => {
-    const {usernameInput} = this.state
-
-    return (
-      <>
-        <LabelElem htmlFor="username">USERNAME</LabelElem>
-        <InputBox
-          type="text"
-          placeholder="Username"
-          id="username"
-          onChange={this.getUpdateUsername}
-          value={usernameInput}
-        />
-      </>
-    )
-  }
-
-  //   Password Input -->
-
-  getUpdatePassword = event => {
-    this.setState({passwordInput: event.target.value})
-  }
-
-  renderPasswordInput = () => {
-    const {passwordInput, isShowPassword} = this.state
-
-    return (
-      <>
-        <LabelElem htmlFor="password">PASSWORD</LabelElem>
-        <PasswordInputBox
-          type={isShowPassword ? 'text' : 'password'}
-          placeholder="Password"
-          id="password"
-          onChange={this.getUpdatePassword}
-          value={passwordInput}
-        />
-      </>
-    )
-  }
-
-  //   ShowPassword Input -->
-
-  passwordIsVisible = () => {
-    const {isShowPassword} = this.state
-
-    this.setState({isShowPassword: !isShowPassword})
-  }
-
-  renderShowPasswordInput = () => (
-    <ShowPasswordContainer>
-      <input
-        type="checkbox"
-        id="showPassword"
-        onChange={this.passwordIsVisible}
-      />
-      <ShowPasswordLabelElem htmlFor="showPassword">
-        Show Password
-      </ShowPasswordLabelElem>
-    </ShowPasswordContainer>
-  )
-
   //   Main render() -->
   render() {
+    const {errorMsg} = this.state
+
     const token = Cookies.get('jwt_token')
     if (token !== undefined) {
       return <Redirect to="/" />
     }
+
+    let msgList
+    if (errorMsg.length > 0) {
+      msgList = errorMsg.split(' ')
+      msgList[0] = 'Username'
+      msgList[2] = 'Password'
+    }
+
     return (
-      <LoginMainContainer className="login-main-container">
-        <LoginContentCard className="login-content-card">
-          <WebsiteLogo
-            src="https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png"
-            alt="website logo"
-          />
-          <FormContainer
-            className="form-container"
-            onSubmit={this.onSubmitLoginForm}
-          >
-            {this.renderUsernameInput()}
-            {this.renderPasswordInput()}
-            {this.renderShowPasswordInput()}
-            <LoginButton type="submit">Login</LoginButton>
-          </FormContainer>
-        </LoginContentCard>
-      </LoginMainContainer>
+      <ThemeContext.Consumer>
+        {value => {
+          const {isDark} = value
+
+          //   Username Input -->
+
+          const getUpdateUsername = event => {
+            this.setState({usernameInput: event.target.value})
+          }
+
+          const renderUsernameInput = () => {
+            const {usernameInput} = this.state
+
+            return (
+              <>
+                <LabelElem htmlFor="username" isDark={isDark}>
+                  USERNAME
+                </LabelElem>
+                <InputBox
+                  type="text"
+                  placeholder="Username"
+                  id="username"
+                  onChange={getUpdateUsername}
+                  value={usernameInput}
+                  isDark={isDark}
+                />
+              </>
+            )
+          }
+
+          //   Password Input -->
+
+          const getUpdatePassword = event => {
+            this.setState({passwordInput: event.target.value})
+          }
+
+          const renderPasswordInput = () => {
+            const {passwordInput, isShowPassword} = this.state
+
+            return (
+              <>
+                <LabelElem htmlFor="password" isDark={isDark}>
+                  PASSWORD
+                </LabelElem>
+                <PasswordInputBox
+                  type={isShowPassword ? 'text' : 'password'}
+                  placeholder="Password"
+                  id="password"
+                  onChange={getUpdatePassword}
+                  value={passwordInput}
+                  isDark={isDark}
+                />
+              </>
+            )
+          }
+
+          //   ShowPassword Input -->
+
+          const passwordIsVisible = () => {
+            const {isShowPassword} = this.state
+
+            this.setState({isShowPassword: !isShowPassword})
+          }
+
+          const renderShowPasswordInput = () => (
+            <ShowPasswordContainer>
+              <input
+                type="checkbox"
+                id="showPassword"
+                onChange={passwordIsVisible}
+              />
+              <ShowPasswordLabelElem htmlFor="showPassword" isDark={isDark}>
+                Show Password
+              </ShowPasswordLabelElem>
+            </ShowPasswordContainer>
+          )
+
+          return (
+            <LoginMainContainer isDark={isDark}>
+              <LoginContentCard isDark={isDark}>
+                <WebsiteLogo
+                  src={
+                    isDark
+                      ? 'https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-dark-theme-img.png'
+                      : 'https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png'
+                  }
+                  alt="website logo"
+                />
+                <FormContainer onSubmit={this.onSubmitLoginForm}>
+                  {renderUsernameInput()}
+                  {renderPasswordInput()}
+                  {renderShowPasswordInput()}
+                  <LoginButton type="submit">Login</LoginButton>
+                  {errorMsg.length > 0 && (
+                    <ErrorMsg>*{msgList.join(' ')}</ErrorMsg>
+                  )}
+                </FormContainer>
+              </LoginContentCard>
+            </LoginMainContainer>
+          )
+        }}
+      </ThemeContext.Consumer>
     )
   }
 }

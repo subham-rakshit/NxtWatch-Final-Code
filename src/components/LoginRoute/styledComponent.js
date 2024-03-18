@@ -5,6 +5,7 @@ export const LoginMainContainer = styled.div`
   justify-content: center;
   align-items: center;
   height: 100vh;
+  background-color: ${props => (props.isDark ? '#212121' : '#ffffff')};
 `
 export const LoginContentCard = styled.div`
   width: 90%;
@@ -13,8 +14,9 @@ export const LoginContentCard = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 40px 10px;
-  box-shadow: 4px 4px 30px 10px #e2e8f0;
+  box-shadow: ${props => (props.isDark ? 'none' : '4px 4px 30px 10px #e2e8f0')};
   border-radius: 6px;
+  background-color: ${props => (props.isDark ? '#0f0f0f' : '#ffffff')};
   //   border: 1px solid red;
   @media screen and (max-width: 767px) {
     padding: 30px 0;
@@ -38,7 +40,7 @@ export const FormContainer = styled.form`
   }
 `
 export const LabelElem = styled.label`
-  color: #616e7c;
+  color: ${props => (props.isDark ? '#ffffff' : '#616e7c')};
   font-size: 13px;
   font-weight: 500;
   font-family: 'Roboto';
@@ -50,10 +52,12 @@ export const InputBox = styled.input`
   font-weight: 400;
   font-family: 'Roboto';
   margin-bottom: 20px;
-  border: 1px solid #cbd5e1;
+  border: ${props =>
+    props.isDark ? '1px solid #475569' : '1px solid #cbd5e1'};
   border-radius: 4px;
   outline: none;
   padding: 10px 12px;
+  background-color: transparent;
 `
 export const PasswordInputBox = styled(InputBox)`
   margin-bottom: 8px;
@@ -69,7 +73,7 @@ export const ShowPasswordContainer = styled.div`
   }
 `
 export const ShowPasswordLabelElem = styled(LabelElem)`
-  color: #1e293b;
+  color: ${props => (props.isDark ? '#ffffff' : '#1e293b')};
   font-size: 13px;
   font-weight: 500;
   margin-bottom: 0;
@@ -85,4 +89,11 @@ export const LoginButton = styled.button`
   outline: none;
   border-radius: 8px;
   cursor: pointer;
+`
+export const ErrorMsg = styled.p`
+  color: #ff0000;
+  font-size: 12px;
+  font-weight: 500;
+  font-family: 'Roboto';
+  margin-top: 2px;
 `
