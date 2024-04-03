@@ -1,31 +1,22 @@
 import {Component} from 'react'
 
 import Cookies from 'js-cookie'
+import {Link} from 'react-router-dom'
 import {formatDistanceToNow} from 'date-fns'
 import Loader from 'react-loader-spinner'
 
-import {AiFillHome} from 'react-icons/ai'
-import {HiFire} from 'react-icons/hi'
-import {SiYoutubegaming} from 'react-icons/si'
-import {MdPlaylistAdd, MdClose} from 'react-icons/md'
-import {BsSearch} from 'react-icons/bs'
+import {MdClose} from 'react-icons/md'
+import {BsSearch, BsDot} from 'react-icons/bs'
 
 import Header from '../Header'
+import ThemeContext from '../../context/ThemeContext'
+import NavigationItems from '../NavigationItems'
 import './index.css'
 
 import {
   HomeMainContainer,
   HomeContentContainer,
-  LeftNavigationContainer,
   RightContainer,
-  NavigationItemsContainer,
-  NavItem,
-  NavItemText,
-  ContactUsSection,
-  ContactUsHeading,
-  ContactLinkContainer,
-  ContactLinkImg,
-  ContactUsDescription,
   PrimeMemberContainer,
   PrimePlansContainer,
   PrimeWebsiteLogo,
@@ -35,6 +26,21 @@ import {
   SearchButtonContainer,
   SearchBox,
   SearchButton,
+  VideoItemListsContainer,
+  VideoItemContainer,
+  ThumbnailImage,
+  VideoDescriptionContainer,
+  ChannelLogo,
+  VideoDetailsContainer,
+  VideoTitleText,
+  VideoChannelName,
+  VideoViewsContainer,
+  VideoViews,
+  FailureContainer,
+  FailureImage,
+  FailureHeading,
+  FailureDescription,
+  RetryButton,
 } from './styledComponent'
 
 const apiStatusConstant = {
@@ -49,6 +55,7 @@ class HomeRoute extends Component {
     searchInput: '',
     videoLists: [],
     apiStatus: apiStatusConstant.initial,
+    primeIsVisible: true,
   }
 
   componentDidMount() {
@@ -87,101 +94,80 @@ class HomeRoute extends Component {
         videoLists: updatedData,
         apiStatus: apiStatusConstant.success,
       })
-      //   console.log(updatedData)
     } else {
       this.setState({apiStatus: apiStatusConstant.failure})
     }
-    // console.log(formatDistanceToNow(new Date('Apr 19, 2020')))
   }
 
-  renderNavigationItemsContainer = () => (
-    <NavigationItemsContainer>
-      <NavItem>
-        <AiFillHome size="18" color="#475569" />
-        <NavItemText>Home</NavItemText>
-      </NavItem>
-      <NavItem>
-        <HiFire size="18" color="#475569" />
-        <NavItemText>Trending</NavItemText>
-      </NavItem>
-      <NavItem>
-        <SiYoutubegaming size="18" color="#475569" />
-        <NavItemText>Gaming</NavItemText>
-      </NavItem>
-      <NavItem>
-        <MdPlaylistAdd size="18" color="#475569" />
-        <NavItemText>Saved videos</NavItemText>
-      </NavItem>
-    </NavigationItemsContainer>
-  )
+  removePrimeDealSection = () => {
+    this.setState({primeIsVisible: false})
+  }
 
-  renderContactUsSection = () => (
-    <ContactUsSection>
-      <ContactUsHeading>CONTACT US</ContactUsHeading>
-      <ContactLinkContainer>
-        <li>
-          <ContactLinkImg
-            src="https://assets.ccbp.in/frontend/react-js/nxt-watch-facebook-logo-img.png"
-            alt="facebook logo"
-          />
-        </li>
-        <li>
-          <ContactLinkImg
-            src="https://assets.ccbp.in/frontend/react-js/nxt-watch-twitter-logo-img.png"
-            alt="twitter logo"
-          />
-        </li>
-        <li>
-          <ContactLinkImg
-            src="https://assets.ccbp.in/frontend/react-js/nxt-watch-linked-in-logo-img.png"
-            alt="linked in logo"
-          />
-        </li>
-      </ContactLinkContainer>
-      <ContactUsDescription>
-        Enjoy! Now to see your channels and recommendations!
-      </ContactUsDescription>
-    </ContactUsSection>
-  )
+  renderHomeContentPrimeDealSection = () => {
+    const {primeIsVisible} = this.state
 
-  renderHomeContentPrimeDealSection = () => (
-    <>
-      <PrimeMemberContainer className="prime-member-container">
-        <PrimePlansContainer className="prime-plans-container">
-          <PrimeWebsiteLogo
-            src="https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png"
-            alt="website logo"
-          />
-          <PrimePlanDescription>
-            Buy Nxt Watch Premium prepaid plans with UPI
-          </PrimePlanDescription>
-          <GetItNowBtn type="button">GET IT NOW</GetItNowBtn>
-        </PrimePlansContainer>
-        <MdClose size="20" color="#475569" cursor="pointer" />
-      </PrimeMemberContainer>
-    </>
-  )
+    return (
+      <>
+        {primeIsVisible && (
+          <PrimeMemberContainer>
+            <PrimePlansContainer>
+              <PrimeWebsiteLogo
+                src="https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png"
+                alt="website logo"
+              />
+              <PrimePlanDescription>
+                Buy Nxt Watch Premium prepaid plans with UPI
+              </PrimePlanDescription>
+              <GetItNowBtn type="button">GET IT NOW</GetItNowBtn>
+            </PrimePlansContainer>
+            <MdClose
+              size="20"
+              color="#475569"
+              cursor="pointer"
+              onClick={this.removePrimeDealSection}
+            />
+          </PrimeMemberContainer>
+        )}
+      </>
+    )
+  }
 
   updateSearchInput = event => {
     this.setState({searchInput: event.target.value})
   }
 
+  getSearchVideoItems = () => {
+    this.getVideoListsData()
+  }
+
   renderSearchBoxElement = () => {
-    const {searchInput, videoLists} = this.state
-    console.log(videoLists)
+    const {searchInput} = this.state
 
     return (
-      <SearchButtonContainer>
-        <SearchBox
-          type="search"
-          placeholder="Search"
-          onChange={this.updateSearchInput}
-          value={searchInput}
-        />
-        <SearchButton type="button" aria-label="search-button">
-          <BsSearch size="12" color="#64748b" />
-        </SearchButton>
-      </SearchButtonContainer>
+      <ThemeContext.Consumer>
+        {value => {
+          const {isDark} = value
+          return (
+            <SearchButtonContainer>
+              <SearchBox
+                type="search"
+                placeholder="Search"
+                onChange={this.updateSearchInput}
+                value={searchInput}
+                isDark={isDark}
+              />
+              <SearchButton
+                type="button"
+                aria-label="search-button"
+                isDark={isDark}
+                onClick={this.getSearchVideoItems}
+              >
+                <BsSearch size="12" color="#64748b" />
+              </SearchButton>
+            </SearchButtonContainer>
+          )
+        }}
+      </ThemeContext.Consumer>
     )
   }
 
@@ -189,43 +175,140 @@ class HomeRoute extends Component {
     const {videoLists} = this.state
 
     return (
-      <ul>
-        {videoLists.map(video => {
-          const timesTime = formatDistanceToNow(new Date(video.publishedAt))
-          const timeList = timesTime.split(' ')
-          const timeDistance = `${timeList[1]} ${timeList[2]} ago`
+      <ThemeContext.Consumer>
+        {value => {
+          const {isDark} = value
+
+          const onClickedRetry = () => {
+            this.setState({searchInput: ''}, this.getVideoListsData)
+          }
+
           return (
-            <li key={video.id}>
-              <img src={video.thumbnailUrl} alt="video thumbnail" />
-              <div>
-                <img src={video.channel.profileImageUrl} alt="channel logo" />
-                <div>
-                  <p>{video.title}</p>
-                  <p>{video.channel.name}</p>
-                  <div>
-                    <p>{`${video.viewCount} views`}</p>
-                    <p>{timeDistance}</p>
-                  </div>
-                </div>
-              </div>
-            </li>
+            <>
+              {videoLists.length > 0 ? (
+                <VideoItemListsContainer>
+                  {videoLists.map(video => {
+                    const timesTime = formatDistanceToNow(
+                      new Date(video.publishedAt),
+                    )
+                    /* console.log(timesTime) */
+                    const timeList = timesTime.split(' ')
+                    const timeDistance = `${timeList[1]} ${timeList[2]} ago`
+                    return (
+                      <Link
+                        to={`/videos/${video.id}`}
+                        className="link"
+                        key={video.id}
+                      >
+                        <VideoItemContainer>
+                          <ThumbnailImage
+                            src={video.thumbnailUrl}
+                            alt="video thumbnail"
+                          />
+                          <VideoDescriptionContainer>
+                            <ChannelLogo
+                              src={video.channel.profileImageUrl}
+                              alt="channel logo"
+                            />
+                            <VideoDetailsContainer>
+                              <VideoTitleText isDark={isDark}>
+                                {video.title}
+                              </VideoTitleText>
+                              <VideoChannelName isDark={isDark}>
+                                {video.channel.name}
+                              </VideoChannelName>
+                              <VideoViewsContainer>
+                                <VideoViews
+                                  isDark={isDark}
+                                >{`${video.viewCount} views`}</VideoViews>
+                                <BsDot
+                                  size="20"
+                                  color={isDark ? '#94a3b8' : '#475569'}
+                                />
+                                <VideoViews isDark={isDark}>
+                                  {timeDistance}
+                                </VideoViews>
+                              </VideoViewsContainer>
+                            </VideoDetailsContainer>
+                          </VideoDescriptionContainer>
+                        </VideoItemContainer>
+                      </Link>
+                    )
+                  })}
+                </VideoItemListsContainer>
+              ) : (
+                <FailureContainer>
+                  <FailureImage
+                    src="https://assets.ccbp.in/frontend/react-js/nxt-watch-no-search-results-img.png"
+                    alt="no videos"
+                  />
+                  <FailureHeading isDark={isDark}>
+                    No Search results found
+                  </FailureHeading>
+                  <FailureDescription isDark={isDark}>
+                    Try different key words or remove search filter
+                  </FailureDescription>
+                  <RetryButton type="button" onClick={onClickedRetry}>
+                    Retry
+                  </RetryButton>
+                </FailureContainer>
+              )}
+            </>
           )
-        })}
-      </ul>
+        }}
+      </ThemeContext.Consumer>
     )
   }
 
-  renderHomeVideosContentSuccessViews = () => (
-    <>
-      {this.renderSearchBoxElement()}
-      {this.renderVideoItems()}
-    </>
+  renderHomeVideosContentSuccessView = () => <>{this.renderVideoItems()}</>
+
+  renderHomeVideosContentFailureView = () => (
+    <ThemeContext.Consumer>
+      {value => {
+        const {isDark} = value
+        const failureImageSrc = isDark
+          ? 'https://assets.ccbp.in/frontend/react-js/nxt-watch-failure-view-dark-theme-img.png'
+          : 'https://assets.ccbp.in/frontend/react-js/nxt-watch-failure-view-light-theme-img.png'
+
+        const onClickedAPIRetry = () => {
+          this.getVideoListsData()
+        }
+        return (
+          <FailureContainer>
+            <FailureImage src={failureImageSrc} alt="failure view" />
+            <FailureHeading isDark={isDark}>
+              Oops! Something Went Wrong
+            </FailureHeading>
+            <FailureDescription isDark={isDark}>
+              We are having some trouble to complete your request. Please try
+              again.
+            </FailureDescription>
+            <RetryButton type="button" onClick={onClickedAPIRetry}>
+              Retry
+            </RetryButton>
+          </FailureContainer>
+        )
+      }}
+    </ThemeContext.Consumer>
   )
 
   renderHomeVideoContentInProgressView = () => (
-    <div className="loader-container" data-testid="loader">
-      <Loader type="ThreeDots" color="#1e293b" height="40" width="50" />
-    </div>
+    <ThemeContext.Consumer>
+      {value => {
+        const {isDark} = value
+
+        return (
+          <div className="loader-container" data-testid="loader">
+            <Loader
+              type="ThreeDots"
+              color={isDark ? '#f8fafc' : '#1e293b'}
+              height="40"
+              width="50"
+            />
+          </div>
+        )
+      }}
+    </ThemeContext.Consumer>
   )
 
   renderHomeVideoListsContentViews = () => {
@@ -233,7 +316,9 @@ class HomeRoute extends Component {
 
     switch (apiStatus) {
       case apiStatusConstant.success:
-        return this.renderHomeVideosContentSuccessViews()
+        return this.renderHomeVideosContentSuccessView()
+      case apiStatusConstant.failure:
+        return this.renderHomeVideosContentFailureView()
       case apiStatusConstant.inProgress:
         return this.renderHomeVideoContentInProgressView()
       default:
@@ -243,22 +328,27 @@ class HomeRoute extends Component {
 
   render() {
     return (
-      <HomeMainContainer className="home-container">
-        <Header />
-        <HomeContentContainer className="home-content">
-          <LeftNavigationContainer className="home-left">
-            {this.renderNavigationItemsContainer()}
-            {this.renderContactUsSection()}
-          </LeftNavigationContainer>
+      <ThemeContext.Consumer>
+        {value => {
+          const {isDark} = value
+          return (
+            <HomeMainContainer>
+              <Header />
+              <HomeContentContainer>
+                <NavigationItems />
 
-          <RightContainer className="home-right">
-            {this.renderHomeContentPrimeDealSection()}
-            <HomeVideoListMainContainer>
-              {this.renderHomeVideoListsContentViews()}
-            </HomeVideoListMainContainer>
-          </RightContainer>
-        </HomeContentContainer>
-      </HomeMainContainer>
+                <RightContainer isDark={isDark}>
+                  {this.renderHomeContentPrimeDealSection()}
+                  <HomeVideoListMainContainer>
+                    {this.renderSearchBoxElement()}
+                    {this.renderHomeVideoListsContentViews()}
+                  </HomeVideoListMainContainer>
+                </RightContainer>
+              </HomeContentContainer>
+            </HomeMainContainer>
+          )
+        }}
+      </ThemeContext.Consumer>
     )
   }
 }

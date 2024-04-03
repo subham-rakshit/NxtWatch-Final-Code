@@ -1,8 +1,10 @@
 import React from 'react'
 
 const ThemeContext = React.createContext({
-  isDarkTheme: false,
+  isDark: false,
   updateTheme: () => {},
+  activeTab: 'Home',
+  changeTab: () => {},
 })
 
 export default ThemeContext
