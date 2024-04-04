@@ -11,11 +11,13 @@ import {BsDot} from 'react-icons/bs'
 
 import Header from '../Header'
 import VideoItemDetailsNavigationItems from '../VideoItemDetailsNavigationItems'
+import ApiFailureView from '../ApiFailureView'
 
 import {
   VideoItemDetailsMainContainer,
   VideoItemDetailsContentContainer,
   VideoItemDetailsRightContainer,
+  VideoContainer,
   VideoItemDetailsTitle,
   ViewsAndLikeDislikeContainer,
   ViewsAndPublishedContainer,
@@ -29,6 +31,7 @@ import {
   ChannelName,
   SubscriberCount,
   ChannelDescription,
+  ChannelDescriptionMobile,
 } from './styledComponent'
 
 import ThemeContext from '../../context/ThemeContext'
@@ -92,11 +95,13 @@ class VideoItemDetailsRoute extends Component {
           viewCount: data.video_details.view_count,
         },
       }
-      console.log(updatedVideoDetails)
+      //   console.log(updatedVideoDetails)
       this.setState({
         apiStatus: apiStatusConstant.success,
         videoItemDetails: updatedVideoDetails,
       })
+    } else {
+      this.setState({apiStatus: apiStatusConstant.failure})
     }
   }
 
@@ -107,7 +112,6 @@ class VideoItemDetailsRoute extends Component {
       isDislikeClicked,
       isSaveClicked,
     } = this.state
-    console.log(isLikeClicked, isDislikeClicked)
 
     const publishedTime = formatDistanceToNow(
       new Date(videoItemDetails.videoDetails.publishedAt),
@@ -119,7 +123,7 @@ class VideoItemDetailsRoute extends Component {
     return (
       <ThemeContext.Consumer>
         {value => {
-          const {isDark} = value
+          const {isDark, updateVideoList, filterVideoList} = value
 
           const onClickedLikeButton = () => {
             this.setState({
@@ -135,20 +139,33 @@ class VideoItemDetailsRoute extends Component {
             })
           }
 
+          const callingUpdateVideoList = () => {
+            if (isSaveClicked) {
+              filterVideoList(videoItemDetails)
+            } else {
+              updateVideoList(videoItemDetails)
+            }
+          }
+
           const onClickedSaveButton = () => {
-            this.setState({
-              isSaveClicked: !isSaveClicked,
-            })
+            this.setState(
+              {
+                isSaveClicked: !isSaveClicked,
+              },
+              callingUpdateVideoList,
+            )
           }
 
           return (
             <>
-              <ReactPlayer
-                url={videoItemDetails.videoDetails.videoUrl}
-                width="100%"
-                height="400px"
-                controls
-              />
+              <VideoContainer>
+                <ReactPlayer
+                  url={videoItemDetails.videoDetails.videoUrl}
+                  width="100%"
+                  height="100%"
+                  controls
+                />
+              </VideoContainer>
               <VideoItemDetailsTitle isDark={isDark}>
                 {videoItemDetails.videoDetails.title}
               </VideoItemDetailsTitle>
@@ -212,12 +229,23 @@ class VideoItemDetailsRoute extends Component {
                   </ChannelDescription>
                 </ChannelDetailsContainer>
               </VideoDetailsContainer>
+              <ChannelDescriptionMobile as="p" isDark={isDark}>
+                {videoItemDetails.videoDetails.description}
+              </ChannelDescriptionMobile>
             </>
           )
         }}
       </ThemeContext.Consumer>
     )
   }
+
+  onClickedAPIRetry = () => {
+    this.getVideoItemDetailsData()
+  }
+
+  renderVideoItemDetailsFailureView = () => (
+    <ApiFailureView onClickedAPIRetry={this.onClickedAPIRetry} />
+  )
 
   renderInProgressView = () => (
     <ThemeContext.Consumer>
@@ -244,6 +272,8 @@ class VideoItemDetailsRoute extends Component {
     switch (apiStatus) {
       case apiStatusConstant.success:
         return this.renderVideoItemDetailsSuccessView()
+      case apiStatusConstant.failure:
+        return this.renderVideoItemDetailsFailureView()
       case apiStatusConstant.inProgress:
         return this.renderInProgressView()
       default:

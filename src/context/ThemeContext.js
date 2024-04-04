@@ -5,6 +5,9 @@ const ThemeContext = React.createContext({
   updateTheme: () => {},
   activeTab: 'Home',
   changeTab: () => {},
+  saveVideoLists: [],
+  updateVideoList: () => {},
+  filterVideoList: () => {},
 })
 
 export default ThemeContext

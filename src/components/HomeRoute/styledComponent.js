@@ -6,7 +6,6 @@ export const HomeMainContainer = styled.div`
 export const HomeContentContainer = styled.div`
   height: 90%;
   display: flex;
-  margin: auto;
   //   border: 1px solid red;
 `
 
@@ -90,20 +89,18 @@ export const GetItNowBtn = styled.button`
 `
 export const HomeVideoListMainContainer = styled.div`
   width: 95%;
+  height: 100%;
   margin: 20px 0;
   //   border: 1px solid red;
 `
 export const SearchButtonContainer = styled.div`
   width: 70%;
+  max-width: 500px;
   height: 30px;
   display: flex;
   align-items: center;
   @media screen and (max-width: 575px) {
     width: 100%;
-    height: 25px;
-  }
-  @media screen and (max-width: 768px and min-width: 576px) {
-    width: 80%;
     height: 25px;
   }
 `
@@ -165,7 +162,7 @@ export const VideoItemContainer = styled.li`
 `
 export const ThumbnailImage = styled.img`
   width: 100%;
-  height: 50%;
+  height: 55%;
   @media screen and (max-width: 575px) {
     height: 60%;
     background-size: cover;

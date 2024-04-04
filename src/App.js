@@ -15,7 +15,7 @@ import './App.css'
 
 // Replace your code here
 class App extends Component {
-  state = {isDark: false, activeTab: 'Home'}
+  state = {isDark: false, activeTab: 'Home', saveVideoList: []}
 
   updateTheme = () => {
     const {isDark} = this.state
@@ -27,8 +27,33 @@ class App extends Component {
     this.setState({activeTab: tabName})
   }
 
+  updateVideoList = videoItemDetails => {
+    const {saveVideoList} = this.state
+    const existingVideoDetails = saveVideoList.find(
+      eachItem => eachItem.videoDetails.id === videoItemDetails.videoDetails.id,
+    )
+
+    if (existingVideoDetails === undefined) {
+      this.setState(prevState => ({
+        saveVideoList: [...prevState.saveVideoList, videoItemDetails],
+      }))
+    }
+  }
+
+  filterVideoList = videoItemDetails => {
+    const {saveVideoList} = this.state
+
+    const updatedVideoList = saveVideoList.filter(
+      itemDetails =>
+        itemDetails.videoDetails.id !== videoItemDetails.videoDetails.id,
+    )
+
+    this.setState({saveVideoList: updatedVideoList})
+  }
+
   render() {
-    const {isDark, activeTab} = this.state
+    const {isDark, activeTab, saveVideoList} = this.state
+    console.log(saveVideoList)
     return (
       <>
         <ThemeContext.Provider
@@ -37,6 +62,9 @@ class App extends Component {
             activeTab,
             updateTheme: this.updateTheme,
             changeTab: this.changeTab,
+            saveVideoList,
+            updateVideoList: this.updateVideoList,
+            filterVideoList: this.filterVideoList,
           }}
         >
           <Switch>
