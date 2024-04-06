@@ -9,7 +9,7 @@ export const Navbar = styled.div`
   //   border: 1px solid red;
   background-color: ${props => (props.isDark ? '#231f20' : '#f1f5f9')};
   @media screen and (max-width: 767px) {
-    padding: 8px 15px;
+    padding: 0 15px;
   }
 `
 export const WebsiteLogo = styled.img`

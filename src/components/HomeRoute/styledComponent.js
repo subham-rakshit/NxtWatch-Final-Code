@@ -22,7 +22,7 @@ export const RightContainer = styled.div`
   overflow: auto;
   background-color: ${props => (props.isDark ? '#181818' : '#f8fafc')};
   //   border: 1px solid green;
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 767px) {
     width: 100%;
   }
   @media screen and (min-width: 992px) {
@@ -40,7 +40,7 @@ export const PrimeMemberContainer = styled.div`
   background-image: url('https://assets.ccbp.in/frontend/react-js/nxt-watch-banner-bg.png');
   background-size: cover;
   margin-top: 0;
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 767px) {
     height: 30%;
     padding: 20px 20px;
     // border: 1px solid red;
@@ -50,13 +50,13 @@ export const PrimePlansContainer = styled.div`
   width: 38%;
   height: 100%;
   //   border: 1px solid red;
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 767px) {
     width: 80%;
   }
 `
 export const PrimeWebsiteLogo = styled.img`
   width: 140px;
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 767px) {
     width: 100px;
   }
 `
@@ -67,7 +67,7 @@ export const PrimePlanDescription = styled.p`
   font-weight: 450;
   font-family: 'Roboto';
   margin-bottom: 30px;
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 767px) {
     font-size: 15px;
     margin-bottom: 15px;
   }
@@ -82,16 +82,18 @@ export const GetItNowBtn = styled.button`
   background-color: transparent;
   padding: 10px 15px;
   cursor: pointer;
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 767px) {
     font-size: 13px;
     padding: 8px 12px;
   }
 `
 export const HomeVideoListMainContainer = styled.div`
   width: 95%;
-  height: 100%;
   margin: 20px 0;
   //   border: 1px solid red;
+  @media screen and (max-width: 575px) {
+    width: 100%;
+  }
 `
 export const SearchButtonContainer = styled.div`
   width: 70%;
@@ -100,8 +102,9 @@ export const SearchButtonContainer = styled.div`
   display: flex;
   align-items: center;
   @media screen and (max-width: 575px) {
-    width: 100%;
+    width: 95%;
     height: 25px;
+    margin: auto;
   }
 `
 export const SearchBox = styled.input`
@@ -116,7 +119,7 @@ export const SearchBox = styled.input`
   border-radius: 2px;
   outline: none;
   padding: 10px 12px;
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 767px) {
     font-size: 12px;
     padding: 8px 10px;
   }
@@ -130,6 +133,7 @@ export const SearchButton = styled.button`
   cursor: pointer;
 `
 export const VideoItemListsContainer = styled.ul`
+  width: 100%;
   display: flex;
   align-items: center;
   flex-wrap: wrap;
@@ -137,35 +141,40 @@ export const VideoItemListsContainer = styled.ul`
   list-style-type: none;
   padding-left: 0;
   //   border: 1px solid red;
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 767px) {
     gap: 12px;
   }
 `
 export const VideoItemContainer = styled.li`
-  width: 230px;
+  width: 280px;
   height: 280px;
   display: flex;
   flex-direction: column;
   cursor: pointer;
   //   border: 1px solid green;
   @media screen and (max-width: 575px) {
+    // border: 1px solid blue;
     width: 100%;
+    height: 300px;
   }
-  @media screen and (max-width: 767px and min-width: 576px) {
-    width: 230px;
-    height: 250px;
+  @media screen and (max-width: 767px) and (min-width: 576px) {
+    // border: 1px solid black;
+    width: 250px;
+    height: 280px;
   }
   @media screen and (min-width: 992px) {
     width: 320px;
-    height: 320px;
+    height: 280px;
   }
 `
 export const ThumbnailImage = styled.img`
   width: 100%;
-  height: 55%;
+  height: 56%;
+  object-fit: cover;
+  // border: 1px solid red;
   @media screen and (max-width: 575px) {
+    width: 100%;
     height: 60%;
-    background-size: cover;
   }
 `
 export const VideoDescriptionContainer = styled.div`
@@ -185,7 +194,7 @@ export const VideoDetailsContainer = styled.div`
 `
 export const VideoTitleText = styled.p`
   color: ${props => (props.isDark ? '#cbd5e1' : '#1e293b')};
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 400;
   font-family: 'Roboto';
   margin-top: 0;
@@ -221,7 +230,7 @@ export const FailureContainer = styled.div`
 `
 export const FailureImage = styled.img`
   width: 300px;
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 767px) {
     width: 230px;
   }
 `
@@ -233,7 +242,7 @@ export const FailureHeading = styled.h1`
   margin-bottom: 0;
   margin-top: 20px;
   text-align: center;
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 767px) {
     font-size: 18px;
     margin-top: 15px;
   }
@@ -245,7 +254,7 @@ export const FailureDescription = styled.p`
   font-family: 'Roboto';
   margin-top: 20px;
   text-align: center;
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 767px) {
     font-size: 14px;
     margin-top: 15px;
   }
@@ -261,7 +270,7 @@ export const RetryButton = styled.button`
   outline: none;
   padding: 12px 30px;
   cursor: pointer;
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 767px) {
     font-size: 12px;
     padding: 10px 25px;
   }

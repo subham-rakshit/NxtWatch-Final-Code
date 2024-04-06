@@ -199,7 +199,7 @@ class HomeRoute extends Component {
                     return (
                       <Link
                         to={`/videos/${video.id}`}
-                        className="link"
+                        className="home-link"
                         key={video.id}
                       >
                         <VideoItemContainer>

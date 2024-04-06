@@ -8,7 +8,7 @@ export const LeftNavigationContainer = styled.div`
   background-color: ${props => (props.isDark ? '#231f20' : '#f1f5f9')};
   padding-bottom: 20px;
   //   border: 1px solid blue;
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 767px) {
     display: none;
   }
   @media screen and (min-width: 992px) {

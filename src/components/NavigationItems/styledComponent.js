@@ -10,7 +10,7 @@ export const LeftNavigationContainer = styled.div`
   background-color: ${props => (props.isDark ? '#231f20' : '#f1f5f9')};
   padding-bottom: 20px;
   //   border: 1px solid blue;
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 767px) {
     display: none;
   }
   @media screen and (min-width: 992px) {
@@ -37,7 +37,7 @@ export const NavItem = styled.li`
   cursor: pointer;
 `
 export const NavItemText = styled.h1`
-  color: ${props => (props.isDark ? '#f9f9f9' : '#231f20')};
+  color: ${props => (props.isDark ? '#cbd5e1' : '#231f20')};
   font-size: 13px;
   font-weight: ${props => props.fontWeight};
   font-family: 'Roboto';

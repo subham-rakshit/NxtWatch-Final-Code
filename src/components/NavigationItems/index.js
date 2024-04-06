@@ -28,7 +28,7 @@ class NavigationItems extends Component {
     <ThemeContext.Consumer>
       {value => {
         const {isDark, activeTab, changeTab} = value
-        const activeTabBg = isDark ? '#424242' : '#cbd5e1'
+        const activeTabBg = isDark ? '#313131' : '#e2e8f0'
 
         const onClickedHomeTab = () => {
           changeTab('Home')
