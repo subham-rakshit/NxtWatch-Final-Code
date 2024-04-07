@@ -8,6 +8,7 @@ export const FailureContainer = styled.div`
   justify-content: center;
   align-items: center;
   margin-top: 20px;
+  padding: 0 15px;
   height: 100%;
   //   border: 1px solid blue;
 `

@@ -2,6 +2,7 @@ import {Component} from 'react'
 
 import Cookies from 'js-cookie'
 import {Link} from 'react-router-dom'
+import Loader from 'react-loader-spinner'
 
 import {HiFire} from 'react-icons/hi'
 import {BsDot} from 'react-icons/bs'
@@ -10,6 +11,8 @@ import {formatDistanceToNow} from 'date-fns'
 import Header from '../Header'
 import ThemeContext from '../../context/ThemeContext'
 import NavigationItems from '../NavigationItems'
+import ApiFailureView from '../ApiFailureView'
+
 import './index.css'
 
 import {
@@ -92,6 +95,25 @@ class TrendingRoute extends Component {
       <ThemeContext.Consumer>
         {value => {
           const {isDark} = value
+
+          const onClickedAPIRetry = () => {
+            this.getTrendingVideosData()
+          }
+
+          const renderTrendingVideoFailureView = () => (
+            <ApiFailureView onClickedAPIRetry={onClickedAPIRetry} />
+          )
+
+          const renderTrendingVideoContentInProgressView = () => (
+            <div className="loader-container" data-testid="loader">
+              <Loader
+                type="ThreeDots"
+                color={isDark ? '#f8fafc' : '#1e293b'}
+                height="40"
+                width="50"
+              />
+            </div>
+          )
 
           const renderTrendingVideosSuccessView = () => (
             <TrendingVideoListsContainer>
@@ -178,6 +200,10 @@ class TrendingRoute extends Component {
             switch (apiStatus) {
               case apiStatusConstant.success:
                 return renderTrendingVideosSuccessView()
+              case apiStatusConstant.inProgress:
+                return renderTrendingVideoContentInProgressView()
+              case apiStatusConstant.failure:
+                return renderTrendingVideoFailureView()
               default:
                 return null
             }
