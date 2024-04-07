@@ -22,11 +22,14 @@ export const TrendingVideosRightContainer = styled.div`
     width: 84%;
     // border: 1px solid red;
   }
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `
 export const TrendingVideoHeader = styled.div`
   width: 100%;
   background-color: ${props => (props.isDark ? '#181818' : '#ebebeb')};
-  display: flex;
+  display: ${props => (props.isApiStatusFailure ? 'none' : 'flex')};
   justify-content: center;
   align-items: center;
   padding: 15px 0;

@@ -7,7 +7,7 @@ export const FailureContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 20px;
+  margin-top: 0;
   padding: 0 15px;
   height: 100%;
   //   border: 1px solid blue;

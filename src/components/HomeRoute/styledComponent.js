@@ -29,6 +29,9 @@ export const RightContainer = styled.div`
     width: 84%;
     // border: 1px solid red;
   }
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `
 export const PrimeMemberContainer = styled.div`
   height: 40%;

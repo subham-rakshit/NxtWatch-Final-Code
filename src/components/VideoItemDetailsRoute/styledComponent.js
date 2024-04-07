@@ -24,6 +24,9 @@ export const VideoItemDetailsRightContainer = styled.div`
   @media screen and (min-width: 992px) {
     width: 84%;
   }
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `
 export const VideoContainer = styled.div`
   height: 400px;

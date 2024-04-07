@@ -22,6 +22,9 @@ export const SaveVideosRightContainer = styled.div`
     width: 84%;
     // border: 1px solid red;
   }
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `
 export const SaveVideoHeader = styled.div`
   width: 100%;
@@ -191,7 +194,7 @@ export const NoSaveVideosImg = styled.img`
   }
 `
 export const NoSaveVideosHeading = styled.h1`
-  color: #1e293b;
+  color: ${props => (props.isDark ? '#e2e8f0' : '#1e293b')};
   font-size: 22px;
   font-weight: 600;
   font-family: 'Roboto';
@@ -202,7 +205,7 @@ export const NoSaveVideosHeading = styled.h1`
   }
 `
 export const NoSaveVideosDescription = styled.p`
-  color: #475569;
+  color: ${props => (props.isDark ? '#94a3b8' : '#64748b')};
   font-size: 15px;
   font-weight: 400;
   font-family: 'Roboto';

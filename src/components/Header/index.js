@@ -73,6 +73,7 @@ class Header extends Component {
                         : 'https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png'
                     }
                     alt="website logo"
+                    onClick={onClickedHomeTab}
                   />
                 </Link>
                 <NavItemContainer>
@@ -128,6 +129,8 @@ class Header extends Component {
                   />
                 </NavItemContainer>
               </Navbar>
+
+              {/* NavItems in mobile view --> */}
               {menuIsClicked && (
                 <MobileNavTabContainer isDark={isDark}>
                   <Link to="/" className="link">

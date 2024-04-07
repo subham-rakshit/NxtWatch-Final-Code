@@ -90,7 +90,7 @@ class TrendingRoute extends Component {
 
   render() {
     const {trendingVideosData, apiStatus} = this.state
-
+    const isApiStatusFailure = apiStatus === apiStatusConstant.failure
     return (
       <ThemeContext.Consumer>
         {value => {
@@ -215,7 +215,10 @@ class TrendingRoute extends Component {
               <TrendingContentContainer>
                 <NavigationItems />
                 <TrendingVideosRightContainer isDark={isDark}>
-                  <TrendingVideoHeader isDark={isDark}>
+                  <TrendingVideoHeader
+                    isDark={isDark}
+                    isApiStatusFailure={isApiStatusFailure}
+                  >
                     <HeaderContentArea>
                       <LogoContainer isDark={isDark}>
                         <HiFire size="28" color="#ff0000" />

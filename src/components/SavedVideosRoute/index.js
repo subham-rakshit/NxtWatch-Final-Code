@@ -39,8 +39,6 @@ const SavedVideosRoute = () => (
   <ThemeContext.Consumer>
     {value => {
       const {isDark, saveVideoList} = value
-      console.log(isDark)
-      console.log(saveVideoList)
 
       const renderListOfSaveVideos = () => (
         <SaveVideoListsContainer>
@@ -145,10 +143,10 @@ const SavedVideosRoute = () => (
                       src="https://assets.ccbp.in/frontend/react-js/nxt-watch-no-saved-videos-img.png"
                       alt="no saved videos"
                     />
-                    <NoSaveVideosHeading>
+                    <NoSaveVideosHeading isDark={isDark}>
                       No saved videos found
                     </NoSaveVideosHeading>
-                    <NoSaveVideosDescription>
+                    <NoSaveVideosDescription isDark={isDark}>
                       You can save your videos while watching them
                     </NoSaveVideosDescription>
                   </NoSavedVideosContainer>
