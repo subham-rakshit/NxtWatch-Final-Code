@@ -1,6 +1,6 @@
 import {Component} from 'react'
 
-import {Switch, Route} from 'react-router-dom'
+import {Switch, Route, Redirect} from 'react-router-dom'
 
 import LoginRoute from './components/LoginRoute'
 import HomeRoute from './components/HomeRoute'
@@ -10,6 +10,7 @@ import TrendingRoute from './components/TrendingRoute'
 import GamingRoute from './components/GamingRoute'
 import SavedVideosRoute from './components/SavedVideosRoute'
 import VideoItemDetailsRoute from './components/VideoItemDetailsRoute'
+import NotFound from './components/NotFound'
 
 import './App.css'
 
@@ -82,6 +83,8 @@ class App extends Component {
               path="/videos/:id"
               component={VideoItemDetailsRoute}
             />
+            <Route exact path="/not-found" component={NotFound} />
+            <Redirect to="/not-found" />
           </Switch>
         </ThemeContext.Provider>
       </>

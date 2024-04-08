@@ -13,7 +13,7 @@ export const SaveVideosRightContainer = styled.div`
   width: 80%;
   height: 100%;
   overflow: auto;
-  background-color: ${props => (props.isDark ? '#0f0f0f' : '#f8fafc')};
+  background-color: ${props => (props.isDark ? '#0f0f0f' : '#f9f9f9')};
   //   border: 1px solid red;
   @media screen and (max-width: 767px) {
     width: 100%;
@@ -112,7 +112,7 @@ export const VideoDetailsContainer = styled.div`
   }
 `
 
-export const SaveVideoTitle = styled.h1`
+export const SaveVideoTitle = styled.p`
   width: 70%;
   color: ${props => (props.isDark ? '#e2e8f0' : '#1e293b')};
   font-size: 20px;

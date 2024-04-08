@@ -2,11 +2,13 @@ import {Component} from 'react'
 
 import {FaMoon} from 'react-icons/fa'
 import {FiSun, FiLogOut} from 'react-icons/fi'
-import {MdMenu, MdClose} from 'react-icons/md'
+import {MdMenu, MdClose, MdPlaylistAdd} from 'react-icons/md'
+import {AiFillHome} from 'react-icons/ai'
+import {HiFire} from 'react-icons/hi'
+import {SiYoutubegaming} from 'react-icons/si'
 
-// import Popup from 'reactjs-popup'
-// import 'reactjs-popup/dist/index.css'
-// import {RiCloseLine} from 'react-icons/ri'
+import Popup from 'reactjs-popup'
+import 'reactjs-popup/dist/index.css'
 
 import {Link, withRouter} from 'react-router-dom'
 import Cookies from 'js-cookie'
@@ -20,19 +22,27 @@ import {
   NavItemContainer,
   Profile,
   LogoutButton,
-  MobileNavTabContainer,
-  TabItem,
+  MobileTabBtn,
+  MobileThemeBtn,
+  PopupLogoutCard,
+  PopupLogoutHeading,
+  PopupLogoutBtnContainer,
+  PopupCancelBtn,
+  PopupConfirmBtn,
+  PopupMenuContainer,
+  PopupMenuNavTabContainer,
+  PopupMenuTabItem,
+  TabItemContent,
+  PopupMenuTabItemText,
 } from './styledComponent'
 
 class Header extends Component {
-  state = {menuIsClicked: false}
-
   render() {
-    const {menuIsClicked} = this.state
     return (
       <ThemeContext.Consumer>
         {value => {
           const {isDark, updateTheme, activeTab, changeTab} = value
+          const activeTabBg = isDark ? '#313131' : '#e2e8f0'
 
           const changeTheme = () => {
             updateTheme()
@@ -43,10 +53,6 @@ class Header extends Component {
 
             const {history} = this.props
             history.replace('/login')
-          }
-
-          const onClickedMenuLogo = () => {
-            this.setState({menuIsClicked: !menuIsClicked})
           }
 
           const onClickedHomeTab = () => {
@@ -65,6 +71,7 @@ class Header extends Component {
           return (
             <>
               <Navbar isDark={isDark}>
+                {/* Website Logo Start --> */}
                 <Link to="/">
                   <WebsiteLogo
                     src={
@@ -76,17 +83,20 @@ class Header extends Component {
                     onClick={onClickedHomeTab}
                   />
                 </Link>
+                {/* Website Logo Start --> */}
+
+                {/* Theme Tab Btn Start --> */}
                 <NavItemContainer>
                   {isDark ? (
-                    <FiSun
-                      size="20"
-                      color="#f9f9f9"
-                      cursor="pointer"
-                      onClick={changeTheme}
-                    />
+                    <MobileThemeBtn onClick={changeTheme} data-testid="theme">
+                      <FiSun size="20" color="#f9f9f9" cursor="pointer" />
+                    </MobileThemeBtn>
                   ) : (
-                    <FaMoon size="20" cursor="pointer" onClick={changeTheme} />
+                    <MobileThemeBtn onClick={changeTheme} data-testid="theme">
+                      <FaMoon size="20" cursor="pointer" />
+                    </MobileThemeBtn>
                   )}
+                  {/* Theme Tab Btn Start --> */}
 
                   {/* Profile Logo in Desktop --> */}
                   <Profile
@@ -94,90 +104,218 @@ class Header extends Component {
                     alt="profile"
                   />
 
-                  {/* Menu Logo in Mobile --> */}
-                  {menuIsClicked ? (
-                    <MdClose
-                      size="25"
-                      className="mobile-logo"
-                      color={isDark ? '#f9f9f9' : '#1e293b'}
-                      onClick={onClickedMenuLogo}
-                    />
-                  ) : (
-                    <MdMenu
-                      size="25"
-                      className="mobile-logo"
-                      color={isDark ? '#f9f9f9' : '#1e293b'}
-                      onClick={onClickedMenuLogo}
-                    />
-                  )}
-
-                  {/* Logout Desktop -->  */}
-                  <LogoutButton
-                    type="button"
-                    isDark={isDark}
-                    onClick={onClickedLogOut}
+                  {/* Menu Logo in Mobile Starts --> */}
+                  <Popup
+                    trigger={
+                      <MobileTabBtn type="button" aria-label="button">
+                        <MdMenu
+                          size="25"
+                          className="mobile-logo"
+                          color={isDark ? '#f9f9f9' : '#1e293b'}
+                        />
+                      </MobileTabBtn>
+                    }
+                    modal
+                    className="popup-content"
                   >
-                    Logout
-                  </LogoutButton>
+                    {close => (
+                      <PopupMenuContainer isDark={isDark}>
+                        <MdClose
+                          size="25"
+                          color={isDark ? '#f9f9f9' : '#1e293b'}
+                          onClick={() => close()}
+                          className="close-popup-menu"
+                        />
+                        <PopupMenuNavTabContainer>
+                          <Link to="/" className="popup-menu-link">
+                            <PopupMenuTabItem
+                              onClick={onClickedHomeTab}
+                              bgColor={
+                                activeTab === 'Home' ? activeTabBg : 'none'
+                              }
+                            >
+                              <TabItemContent>
+                                <AiFillHome
+                                  size="20"
+                                  color={
+                                    activeTab === 'Home' ? '#ff0000' : '#909090'
+                                  }
+                                />
+                                <PopupMenuTabItemText
+                                  isDark={isDark}
+                                  fontWeight={
+                                    activeTab === 'Home' ? 'bold' : 'normal'
+                                  }
+                                >
+                                  Home
+                                </PopupMenuTabItemText>
+                              </TabItemContent>
+                            </PopupMenuTabItem>
+                          </Link>
 
-                  {/* Logout Mobile -->  */}
-                  <FiLogOut
-                    size="20"
-                    onClick={onClickedLogOut}
-                    className="mobile-logo"
-                    color={isDark ? '#f9f9f9' : '#1e293b'}
-                  />
+                          <Link to="/trending" className="popup-menu-link">
+                            <PopupMenuTabItem
+                              onClick={onClickedTrendingTab}
+                              bgColor={
+                                activeTab === 'Trending' ? activeTabBg : 'none'
+                              }
+                            >
+                              <TabItemContent>
+                                <HiFire
+                                  size="20"
+                                  color={
+                                    activeTab === 'Trending'
+                                      ? '#ff0000'
+                                      : '#909090'
+                                  }
+                                />
+                                <PopupMenuTabItemText
+                                  isDark={isDark}
+                                  fontWeight={
+                                    activeTab === 'Trending' ? 'bold' : 'normal'
+                                  }
+                                >
+                                  Trending
+                                </PopupMenuTabItemText>
+                              </TabItemContent>
+                            </PopupMenuTabItem>
+                          </Link>
+
+                          <Link to="/gaming" className="popup-menu-link">
+                            <PopupMenuTabItem
+                              onClick={onClickedGamingTab}
+                              bgColor={
+                                activeTab === 'Gaming' ? activeTabBg : 'none'
+                              }
+                            >
+                              <TabItemContent>
+                                <SiYoutubegaming
+                                  size="20"
+                                  color={
+                                    activeTab === 'Gaming'
+                                      ? '#ff0000'
+                                      : '#909090'
+                                  }
+                                />
+                                <PopupMenuTabItemText
+                                  isDark={isDark}
+                                  fontWeight={
+                                    activeTab === 'Gaming' ? 'bold' : 'normal'
+                                  }
+                                >
+                                  Gaming
+                                </PopupMenuTabItemText>
+                              </TabItemContent>
+                            </PopupMenuTabItem>
+                          </Link>
+
+                          <Link to="/saved-videos" className="popup-menu-link">
+                            <PopupMenuTabItem
+                              onClick={onClickedSavedTab}
+                              bgColor={
+                                activeTab === 'Saved' ? activeTabBg : 'none'
+                              }
+                            >
+                              <TabItemContent>
+                                <MdPlaylistAdd
+                                  size="20"
+                                  color={
+                                    activeTab === 'Saved'
+                                      ? '#ff0000'
+                                      : '#909090'
+                                  }
+                                />
+                                <PopupMenuTabItemText
+                                  isDark={isDark}
+                                  fontWeight={
+                                    activeTab === 'Saved' ? 'bold' : 'normal'
+                                  }
+                                >
+                                  Saved videos
+                                </PopupMenuTabItemText>
+                              </TabItemContent>
+                            </PopupMenuTabItem>
+                          </Link>
+                        </PopupMenuNavTabContainer>
+                      </PopupMenuContainer>
+                    )}
+                  </Popup>
+                  {/* Menu Logo in Mobile End --> */}
+
+                  {/* Logout Desktop Start -->  */}
+                  <Popup
+                    trigger={
+                      <LogoutButton type="button" isDark={isDark}>
+                        Logout
+                      </LogoutButton>
+                    }
+                    modal
+                    className="popup-content"
+                  >
+                    {close => (
+                      <PopupLogoutCard isDark={isDark}>
+                        <PopupLogoutHeading isDark={isDark}>
+                          Are you sure you want to logout?
+                        </PopupLogoutHeading>
+                        <PopupLogoutBtnContainer className="logout-btn-container">
+                          <PopupCancelBtn
+                            isDark={isDark}
+                            type="button"
+                            onClick={() => close()}
+                          >
+                            Cancel
+                          </PopupCancelBtn>
+                          <PopupConfirmBtn
+                            type="button"
+                            onClick={onClickedLogOut}
+                          >
+                            Confirm
+                          </PopupConfirmBtn>
+                        </PopupLogoutBtnContainer>
+                      </PopupLogoutCard>
+                    )}
+                  </Popup>
+                  {/* Logout Desktop End -->  */}
+
+                  {/* Logout Mobile Start -->  */}
+                  <Popup
+                    trigger={
+                      <MobileTabBtn type="button" aria-label="button">
+                        <FiLogOut
+                          size="20"
+                          color={isDark ? '#f9f9f9' : '#1e293b'}
+                        />
+                      </MobileTabBtn>
+                    }
+                    modal
+                    className="popup-content"
+                  >
+                    {close => (
+                      <PopupLogoutCard isDark={isDark}>
+                        <PopupLogoutHeading isDark={isDark}>
+                          Are you sure you want to logout?
+                        </PopupLogoutHeading>
+                        <PopupLogoutBtnContainer className="logout-btn-container">
+                          <PopupCancelBtn
+                            isDark={isDark}
+                            type="button"
+                            onClick={() => close()}
+                          >
+                            Cancel
+                          </PopupCancelBtn>
+                          <PopupConfirmBtn
+                            type="button"
+                            onClick={onClickedLogOut}
+                          >
+                            Confirm
+                          </PopupConfirmBtn>
+                        </PopupLogoutBtnContainer>
+                      </PopupLogoutCard>
+                    )}
+                  </Popup>
+                  {/* Logout Mobile End -->  */}
                 </NavItemContainer>
               </Navbar>
-
-              {/* NavItems in mobile view --> */}
-              {menuIsClicked && (
-                <MobileNavTabContainer isDark={isDark}>
-                  <Link to="/" className="link">
-                    <TabItem
-                      isDark={isDark}
-                      key="home"
-                      fontWeight={activeTab === 'Home' ? 'bold' : 'normal'}
-                      onClick={onClickedHomeTab}
-                    >
-                      Home
-                    </TabItem>
-                  </Link>
-
-                  <Link to="/trending" className="link">
-                    <TabItem
-                      isDark={isDark}
-                      key="trending"
-                      fontWeight={activeTab === 'Trending' ? 'bold' : 'normal'}
-                      onClick={onClickedTrendingTab}
-                    >
-                      Trending
-                    </TabItem>
-                  </Link>
-
-                  <Link to="/gaming" className="link">
-                    <TabItem
-                      isDark={isDark}
-                      key="gaming"
-                      fontWeight={activeTab === 'Gaming' ? 'bold' : 'normal'}
-                      onClick={onClickedGamingTab}
-                    >
-                      Gaming
-                    </TabItem>
-                  </Link>
-
-                  <Link to="/saved-videos" className="link">
-                    <TabItem
-                      isDark={isDark}
-                      key="saved"
-                      fontWeight={activeTab === 'Saved' ? 'bold' : 'normal'}
-                      onClick={onClickedSavedTab}
-                    >
-                      Saved videos
-                    </TabItem>
-                  </Link>
-                </MobileNavTabContainer>
-              )}
             </>
           )
         }}

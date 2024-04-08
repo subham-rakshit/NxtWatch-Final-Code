@@ -13,7 +13,7 @@ export const GamingVideosRightContainer = styled.div`
   width: 80%;
   height: 100%;
   overflow: auto;
-  background-color: ${props => (props.isDark ? '#0f0f0f' : '#f8fafc')};
+  background-color: ${props => (props.isDark ? '#0f0f0f' : '#f9f9f9')};
   //   border: 1px solid red;
   @media screen and (max-width: 767px) {
     width: 100%;

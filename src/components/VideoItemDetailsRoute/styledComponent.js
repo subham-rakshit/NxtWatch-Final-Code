@@ -16,7 +16,7 @@ export const VideoItemDetailsRightContainer = styled.div`
   //   border: 1px solid red;
   padding: 20px 30px;
   overflow: auto;
-  background-color: ${props => (props.isDark ? '#181818' : '#f8fafc')};
+  background-color: ${props => (props.isDark ? '#0f0f0f' : '#f9f9f9')};
   @media screen and (max-width: 767px) {
     width: 100%;
     padding: 20px 0;
@@ -34,7 +34,7 @@ export const VideoContainer = styled.div`
     height: 300px;
   }
 `
-export const VideoItemDetailsTitle = styled.h1`
+export const VideoItemDetailsTitle = styled.p`
   color: ${props => (props.isDark ? '#cbd5e1' : '#1e293b')};
   font-size: 18px;
   font-weight: 500;
@@ -122,7 +122,7 @@ export const ChannelLogo = styled.img`
 `
 export const ChannelDetailsContainer = styled.div``
 
-export const ChannelName = styled.h1`
+export const ChannelName = styled.p`
   color: ${props => (props.isDark ? '#cbd5e1' : '#1e293b')};
   font-size: 15px;
   font-weight: 500;
@@ -142,7 +142,9 @@ export const SubscriberCount = styled.p`
     font-size: 13px;
   }
 `
-export const ChannelDescription = styled(ChannelName)`
+export const ChannelDescription = styled.p`
+  color: ${props => (props.isDark ? '#cbd5e1' : '#1e293b')};
+  font-size: 15px;
   margin-top: 40px;
   font-weight: 400;
   line-height: 1.8;

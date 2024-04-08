@@ -123,7 +123,7 @@ const SavedVideosRoute = () => (
           <Header />
           <SaveVideosContentContainer>
             <NavigationItems />
-            <SaveVideosRightContainer isDark={isDark}>
+            <SaveVideosRightContainer isDark={isDark} data-testid="savedVideos">
               <>
                 {saveVideoList.length > 0 ? (
                   <>

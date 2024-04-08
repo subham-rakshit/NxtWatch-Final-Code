@@ -146,7 +146,10 @@ class GamingRoute extends Component {
               <Header />
               <GamingContentContainer>
                 <NavigationItems />
-                <GamingVideosRightContainer isDark={isDark}>
+                <GamingVideosRightContainer
+                  isDark={isDark}
+                  data-testid="gaming"
+                >
                   <GamingVideoHeader
                     isDark={isDark}
                     isApiFailure={isApiFailure}

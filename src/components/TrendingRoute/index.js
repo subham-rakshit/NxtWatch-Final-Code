@@ -146,7 +146,7 @@ class TrendingRoute extends Component {
                         </TrendingVideoChannelName>
                         <TrendingVideoViewsContainer>
                           <TrendingVideoViews isDark={isDark}>
-                            {eachItem.viewCount}
+                            {eachItem.viewCount} views
                           </TrendingVideoViews>
                           <BsDot
                             size="20"
@@ -177,7 +177,7 @@ class TrendingRoute extends Component {
                               color={isDark ? '#94a3b8' : '#64748b'}
                             />
                             <TrendingVideoViews isDark={isDark}>
-                              {eachItem.viewCount}
+                              {eachItem.viewCount} views
                             </TrendingVideoViews>
                             <BsDot
                               size="20"
@@ -210,11 +210,14 @@ class TrendingRoute extends Component {
           }
 
           return (
-            <TrendingMainContainer>
+            <TrendingMainContainer data-testid="trending">
               <Header />
               <TrendingContentContainer>
                 <NavigationItems />
-                <TrendingVideosRightContainer isDark={isDark}>
+                <TrendingVideosRightContainer
+                  isDark={isDark}
+                  data-testid="trending"
+                >
                   <TrendingVideoHeader
                     isDark={isDark}
                     isApiStatusFailure={isApiStatusFailure}

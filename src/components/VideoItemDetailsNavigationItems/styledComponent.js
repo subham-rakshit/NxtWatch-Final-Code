@@ -47,7 +47,7 @@ export const ContactUsSection = styled.div`
   gap: 15px;
   //   border: 1px solid red;
 `
-export const ContactUsHeading = styled.h1`
+export const ContactUsHeading = styled.p`
   color: ${props => (props.isDark ? '#cbd5e1' : '#1e293b')};
   font-size: 16px;
   font-weight: 500;

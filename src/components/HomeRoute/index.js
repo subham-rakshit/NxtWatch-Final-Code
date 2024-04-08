@@ -23,6 +23,7 @@ import {
   PrimePlansContainer,
   PrimeWebsiteLogo,
   PrimePlanDescription,
+  CloseBannerBtn,
   GetItNowBtn,
   HomeVideoListMainContainer,
   SearchButtonContainer,
@@ -111,23 +112,25 @@ class HomeRoute extends Component {
     return (
       <>
         {primeIsVisible && (
-          <PrimeMemberContainer>
+          <PrimeMemberContainer data-testid="banner">
             <PrimePlansContainer>
               <PrimeWebsiteLogo
                 src="https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png"
-                alt="website logo"
+                alt="nxt watch logo"
               />
               <PrimePlanDescription>
                 Buy Nxt Watch Premium prepaid plans with UPI
               </PrimePlanDescription>
               <GetItNowBtn type="button">GET IT NOW</GetItNowBtn>
             </PrimePlansContainer>
-            <MdClose
-              size="20"
-              color="#475569"
-              cursor="pointer"
+            <CloseBannerBtn
+              type="button"
               onClick={this.removePrimeDealSection}
-            />
+              data-testid="close"
+              aria-label="button"
+            >
+              <MdClose size="20" color="#475569" cursor="pointer" />
+            </CloseBannerBtn>
           </PrimeMemberContainer>
         )}
       </>
@@ -163,6 +166,7 @@ class HomeRoute extends Component {
                 aria-label="search-button"
                 isDark={isDark}
                 onClick={this.getSearchVideoItems}
+                data-testid="searchButton"
               >
                 <BsSearch size="12" color="#64748b" />
               </SearchButton>
@@ -317,7 +321,7 @@ class HomeRoute extends Component {
               <HomeContentContainer>
                 <NavigationItems />
 
-                <RightContainer isDark={isDark}>
+                <RightContainer isDark={isDark} data-testid="home">
                   {this.renderHomeContentPrimeDealSection()}
                   <HomeVideoListMainContainer>
                     {this.renderSearchBoxElement()}

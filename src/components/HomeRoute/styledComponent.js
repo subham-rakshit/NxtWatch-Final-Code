@@ -20,7 +20,7 @@ export const RightContainer = styled.div`
   align-items: center;
   padding: 0;
   overflow: auto;
-  background-color: ${props => (props.isDark ? '#181818' : '#f8fafc')};
+  background-color: ${props => (props.isDark ? '#181818' : '#f9f9f9')};
   //   border: 1px solid green;
   @media screen and (max-width: 767px) {
     width: 100%;
@@ -74,6 +74,14 @@ export const PrimePlanDescription = styled.p`
     font-size: 15px;
     margin-bottom: 15px;
   }
+`
+export const CloseBannerBtn = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  outline: none;
+  background-color: transparent;
 `
 export const GetItNowBtn = styled.button`
   color: #1e293b;

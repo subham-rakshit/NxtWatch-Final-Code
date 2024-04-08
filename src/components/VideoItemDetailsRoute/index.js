@@ -184,7 +184,7 @@ class VideoItemDetailsRoute extends Component {
                     type="button"
                     isDark={isDark}
                     onClick={onClickedLikeButton}
-                    color={isLikeClicked ? '#3b82f6' : '#475569'}
+                    color={isLikeClicked ? '#2563eb' : '#64748b'}
                   >
                     <BiLike size="18" />
                     Like
@@ -193,7 +193,7 @@ class VideoItemDetailsRoute extends Component {
                     type="button"
                     isDark={isDark}
                     onClick={onClickedDislikeButton}
-                    color={isDislikeClicked ? '#3b82f6' : '#475569'}
+                    color={isDislikeClicked ? '#2563eb' : '#64748b'}
                   >
                     <BiDislike size="18" />
                     Dislike
@@ -202,7 +202,7 @@ class VideoItemDetailsRoute extends Component {
                     type="button"
                     isDark={isDark}
                     onClick={onClickedSaveButton}
-                    color={isSaveClicked ? '#3b82f6' : '#475569'}
+                    color={isSaveClicked ? '#2563eb' : '#64748b'}
                   >
                     <MdPlaylistAdd size="18" />
                     {isSaveClicked ? 'Saved' : 'Save'}
@@ -224,12 +224,12 @@ class VideoItemDetailsRoute extends Component {
                     subscribers
                   </SubscriberCount>
 
-                  <ChannelDescription as="p" isDark={isDark}>
+                  <ChannelDescription isDark={isDark}>
                     {videoItemDetails.videoDetails.description}
                   </ChannelDescription>
                 </ChannelDetailsContainer>
               </VideoDetailsContainer>
-              <ChannelDescriptionMobile as="p" isDark={isDark}>
+              <ChannelDescriptionMobile isDark={isDark}>
                 {videoItemDetails.videoDetails.description}
               </ChannelDescriptionMobile>
             </>
@@ -292,7 +292,10 @@ class VideoItemDetailsRoute extends Component {
               <Header />
               <VideoItemDetailsContentContainer>
                 <VideoItemDetailsNavigationItems />
-                <VideoItemDetailsRightContainer isDark={isDark}>
+                <VideoItemDetailsRightContainer
+                  isDark={isDark}
+                  data-testid="videoItemDetails"
+                >
                   {this.renderVideoItemDetailsViews()}
                 </VideoItemDetailsRightContainer>
               </VideoItemDetailsContentContainer>
