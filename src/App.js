@@ -16,7 +16,13 @@ import './App.css'
 
 // Replace your code here
 class App extends Component {
-  state = {isDark: false, activeTab: 'Home', saveVideoList: []}
+  state = {
+    isDark: false,
+    isSaveBtnClicked: false,
+    activeTab: 'Home',
+    saveVideoList: [],
+    saveVideoId: '',
+  }
 
   updateTheme = () => {
     const {isDark} = this.state
@@ -30,42 +36,56 @@ class App extends Component {
 
   updateVideoList = videoItemDetails => {
     const {saveVideoList} = this.state
-    const existingVideoDetails = saveVideoList.find(
+    const index = saveVideoList.findIndex(
       eachItem => eachItem.videoDetails.id === videoItemDetails.videoDetails.id,
     )
 
-    if (existingVideoDetails === undefined) {
-      this.setState(prevState => ({
-        saveVideoList: [...prevState.saveVideoList, videoItemDetails],
-      }))
+    if (index === -1) {
+      this.setState({
+        saveVideoList: [...saveVideoList, videoItemDetails],
+        saveVideoId: '',
+      })
+    } else {
+      saveVideoList.splice(index, 1)
+      this.setState({saveVideoList, saveVideoId: ''})
     }
   }
 
-  filterVideoList = videoItemDetails => {
-    const {saveVideoList} = this.state
+  //   removeVideo = id => {
+  //     const {saveVideoList} = this.state
+  //     const updatedSaveVideos = saveVideoList.filter(
+  //       eachVideo => eachVideo.videoDetails.id !== id,
+  //     )
+  //     this.setState({saveVideoList: updatedSaveVideos, saveVideoId: ''})
+  //   }
 
-    const updatedVideoList = saveVideoList.filter(
-      itemDetails =>
-        itemDetails.videoDetails.id !== videoItemDetails.videoDetails.id,
-    )
-
-    this.setState({saveVideoList: updatedVideoList})
+  updateVideoSavedStatus = id => {
+    const {isSaveBtnClicked} = this.state
+    this.setState({saveVideoId: id, isSaveBtnClicked: !isSaveBtnClicked})
   }
 
   render() {
-    const {isDark, activeTab, saveVideoList} = this.state
-    // console.log(saveVideoList)
+    const {
+      isDark,
+      activeTab,
+      saveVideoList,
+      saveVideoId,
+      isSaveBtnClicked,
+    } = this.state
+    console.log(saveVideoId)
     return (
       <>
         <ThemeContext.Provider
           value={{
             isDark,
             activeTab,
+            isSaveBtnClicked,
             updateTheme: this.updateTheme,
             changeTab: this.changeTab,
             saveVideoList,
             updateVideoList: this.updateVideoList,
-            filterVideoList: this.filterVideoList,
+            saveVideoId,
+            updateVideoSavedStatus: this.updateVideoSavedStatus,
           }}
         >
           <Switch>

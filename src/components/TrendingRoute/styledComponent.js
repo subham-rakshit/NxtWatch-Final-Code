@@ -103,22 +103,23 @@ export const TrendingVideoThumbnailImg = styled.img`
 
 // Video Details in Desktop Starts -->
 export const TrendingVideoDetailsContainer = styled.div`
-  display: inline-block;
   width: 100%;
   //   border: 1px solid red;
   @media screen and (max-width: 575px) {
-    display: none;
+    display: flex;
+    gap: 15px;
+    padding: 0 15px;
   }
 `
 
-export const TrendingVideoTitle = styled.h1`
+export const TrendingVideoTitle = styled.p`
   width: 70%;
   color: ${props => (props.isDark ? '#e2e8f0' : '#1e293b')};
   font-size: 20px;
   font-weight: 500;
   font-family: 'Roboto';
   margin-top: 0;
-  line-height: 1.8;
+  line-height: 1.5;
   margin-bottom: 0;
   //   border: 1px solid red;
   @media screen and (max-width: 575px) {
@@ -140,38 +141,28 @@ export const TrendingVideoChannelName = styled.p`
   font-family: 'Roboto';
   margin-top: 15px;
   margin-bottom: 0;
+  @media screen and (max-width: 767px) {
+    margin-top: 10px;
+  }
 `
 export const TrendingVideoViewsContainer = styled.div`
   display: flex;
   align-items: center;
-  margin-top: 15px;
-  //   border: 1px solid red;
-  @media screen and (max-width: 575px) {
-    margin-bottom: 15px;
-  }
 `
-export const TrendingVideoViews = styled(TrendingVideoChannelName)`
+export const TrendingVideoViews = styled.p`
   color: ${props => (props.isDark ? '#94a3b8' : '#64748b')};
-  margin-top: 0;
+  font-size: 14px;
+  font-weight: 400;
+  font-family: 'Roboto';
   //   border: 1px solid red;
+`
+
+export const ChannelLogoInMobile = styled.img`
+  display: none;
+  @media screen and (max-width: 575px) {
+    display: block;
+    width: 40px;
+    height: 40px;
+  }
 `
 // Video Details in Desktop End -->
-
-// Video Details in Mobile Start -->
-export const TrendingVideoDetailsContainerMobile = styled.div`
-  padding: 0 15px;
-  display: flex;
-  gap: 20px;
-  //   border: 1px solid red;
-  @media screen and (min-width: 576px) {
-    display: none;
-  }
-`
-export const ChannelLogoInMobile = styled.img`
-  width: 50px;
-  height: 50px;
-`
-export const TrendingVideoChannelNameMobile = styled(TrendingVideoChannelName)`
-  margin-top: 0;
-`
-// Video Details in Mobile End -->

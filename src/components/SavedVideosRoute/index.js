@@ -22,10 +22,8 @@ import {
   SaveVideoItemContainer,
   SaveVideoThumbnailImg,
   VideoDetailsContainer,
-  VideoDetailsContainerMobile,
   SaveVideoTitle,
   SaveVideoChannelName,
-  SaveVideoChannelNameMobile,
   SaveVideoViewsContainer,
   SaveVideoViews,
   NoSavedVideosContainer,
@@ -38,7 +36,7 @@ import {
 const SavedVideosRoute = () => (
   <ThemeContext.Consumer>
     {value => {
-      const {isDark, saveVideoList} = value
+      const {isDark, saveVideoList, updateVideoSavedStatus} = value
 
       const renderListOfSaveVideos = () => (
         <SaveVideoListsContainer>
@@ -48,12 +46,15 @@ const SavedVideosRoute = () => (
             )
             const timeList = timesTime.split(' ')
             const timeDistance = `${timeList[1]} ${timeList[2]} ago`
-
+            const changeSaveVideoStatus = () => {
+              updateVideoSavedStatus(eachItem.videoDetails.id)
+            }
             return (
               <Link
                 to={`/videos/${eachItem.videoDetails.id}`}
                 className="save-video-link"
                 key={eachItem.videoDetails.id}
+                onClick={changeSaveVideoStatus}
               >
                 <SaveVideoItemContainer>
                   <SaveVideoThumbnailImg
@@ -61,45 +62,22 @@ const SavedVideosRoute = () => (
                     alt="video thumbnail"
                   />
 
-                  {/* Video Details in desktop version ---> */}
+                  {/* Video Details in desktop version Start ---> */}
                   <VideoDetailsContainer>
-                    <SaveVideoTitle isDark={isDark}>
-                      {eachItem.videoDetails.title}
-                    </SaveVideoTitle>
-                    <SaveVideoChannelName isDark={isDark}>
-                      {eachItem.videoDetails.channel.name}
-                    </SaveVideoChannelName>
-                    <SaveVideoViewsContainer>
-                      <SaveVideoViews isDark={isDark}>
-                        {eachItem.videoDetails.viewCount}
-                      </SaveVideoViews>
-                      <BsDot size="20" color={isDark ? '#94a3b8' : '#64748b'} />
-                      <SaveVideoViews isDark={isDark}>
-                        {timeDistance}
-                      </SaveVideoViews>
-                    </SaveVideoViewsContainer>
-                  </VideoDetailsContainer>
-
-                  {/* Video Details in Mobile version ---> */}
-                  <VideoDetailsContainerMobile>
                     <ChannelLogoInMobile
-                      src={eachItem.videoDetails.channel.profileImageUrl}
+                      src={eachItem.videoDetails.profileImageUrl}
                       alt="channel logo"
                     />
                     <div>
                       <SaveVideoTitle isDark={isDark}>
                         {eachItem.videoDetails.title}
                       </SaveVideoTitle>
+                      <SaveVideoChannelName isDark={isDark}>
+                        {eachItem.videoDetails.name}
+                      </SaveVideoChannelName>
                       <SaveVideoViewsContainer>
-                        <SaveVideoChannelNameMobile isDark={isDark}>
-                          {eachItem.videoDetails.channel.name}
-                        </SaveVideoChannelNameMobile>
-                        <BsDot
-                          size="20"
-                          color={isDark ? '#94a3b8' : '#64748b'}
-                        />
                         <SaveVideoViews isDark={isDark}>
-                          {eachItem.videoDetails.viewCount}
+                          {eachItem.videoDetails.viewCount} views
                         </SaveVideoViews>
                         <BsDot
                           size="20"
@@ -110,7 +88,8 @@ const SavedVideosRoute = () => (
                         </SaveVideoViews>
                       </SaveVideoViewsContainer>
                     </div>
-                  </VideoDetailsContainerMobile>
+                  </VideoDetailsContainer>
+                  {/* Video Details in desktop version End ---> */}
                 </SaveVideoItemContainer>
               </Link>
             )
@@ -124,19 +103,17 @@ const SavedVideosRoute = () => (
           <SaveVideosContentContainer>
             <NavigationItems />
             <SaveVideosRightContainer isDark={isDark} data-testid="savedVideos">
+              <SaveVideoHeader isDark={isDark}>
+                <HeaderContentArea>
+                  <LogoContainer isDark={isDark}>
+                    <HiFire size="28" color="#ff0000" />
+                  </LogoContainer>
+                  <HeaderText isDark={isDark}>Saved Videos</HeaderText>
+                </HeaderContentArea>
+              </SaveVideoHeader>
               <>
                 {saveVideoList.length > 0 ? (
-                  <>
-                    <SaveVideoHeader isDark={isDark}>
-                      <HeaderContentArea>
-                        <LogoContainer isDark={isDark}>
-                          <HiFire size="28" color="#ff0000" />
-                        </LogoContainer>
-                        <HeaderText isDark={isDark}>Saved Videos</HeaderText>
-                      </HeaderContentArea>
-                    </SaveVideoHeader>
-                    {renderListOfSaveVideos()}
-                  </>
+                  renderListOfSaveVideos()
                 ) : (
                   <NoSavedVideosContainer>
                     <NoSaveVideosImg

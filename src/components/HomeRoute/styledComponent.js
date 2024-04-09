@@ -211,21 +211,24 @@ export const VideoTitleText = styled.p`
   margin-top: 0;
   margin-bottom: 0;
 `
-export const VideoChannelName = styled(VideoTitleText)`
+export const VideoChannelName = styled.p`
   color: ${props => (props.isDark ? '#94a3b8' : '#475569')};
+  font-size: 13px;
+  font-weight: 400;
+  font-family: 'Roboto';
   margin-top: 10px;
   margin-bottom: 0;
   //   border: 1px solid red;
 `
-export const VideoViewsContainer = styled.div`
+
+export const VideoViews = styled.p`
+  color: ${props => (props.isDark ? '#94a3b8' : '#475569')};
+  font-size: 13px;
+  font-weight: 400;
+  font-family: 'Roboto';
+  margin-top: 8px;
   display: flex;
   align-items: center;
-  margin-top: 10px;
-  //   border: 1px solid red;
-`
-export const VideoViews = styled(VideoChannelName)`
-  color: ${props => (props.isDark ? '#94a3b8' : '#475569')};
-  margin-top: 0;
   //   border: 1px solid red;
 `
 

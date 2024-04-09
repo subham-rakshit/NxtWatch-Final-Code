@@ -100,7 +100,7 @@ class GamingRoute extends Component {
                         {eachVideoDetails.title}
                       </GamingVideoTitle>
                       <GamingVideoViewCount isDark={isDark}>
-                        {eachVideoDetails.viewCount} watching Worldwide
+                        {eachVideoDetails.viewCount} Watching Worldwide
                       </GamingVideoViewCount>
                     </Link>
                   </GamingVideoItemContainer>

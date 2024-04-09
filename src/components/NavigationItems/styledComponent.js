@@ -36,7 +36,7 @@ export const NavItem = styled.li`
   padding: 0 12px;
   cursor: pointer;
 `
-export const NavItemText = styled.h1`
+export const NavItemText = styled.p`
   color: ${props => (props.isDark ? '#cbd5e1' : '#231f20')};
   font-size: 13px;
   font-weight: ${props => props.fontWeight};

@@ -105,7 +105,7 @@ export const GamingVideoThumbnailImg = styled.img`
     margin-bottom: 10px;
   }
 `
-export const GamingVideoTitle = styled.h1`
+export const GamingVideoTitle = styled.p`
   color: ${props => (props.isDark ? '#e2e8f0' : '#1e293b')};
   font-size: 14px;
   font-weight: 500;

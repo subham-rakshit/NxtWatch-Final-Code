@@ -85,7 +85,7 @@ export const PopupLogoutCard = styled.div`
   border-radius: 10px;
   border: none;
 `
-export const PopupLogoutHeading = styled.h1`
+export const PopupLogoutHeading = styled.p`
   color: ${props => (props.isDark ? '#cbd5e1' : '#1e293b')};
   font-size: 15px;
   font-weight: 500;

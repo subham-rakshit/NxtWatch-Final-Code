@@ -120,7 +120,6 @@ export const ChannelLogo = styled.img`
     height: 40px;
   }
 `
-export const ChannelDetailsContainer = styled.div``
 
 export const ChannelName = styled.p`
   color: ${props => (props.isDark ? '#cbd5e1' : '#1e293b')};
@@ -148,8 +147,15 @@ export const ChannelDescription = styled.p`
   margin-top: 40px;
   font-weight: 400;
   line-height: 1.8;
+  //   width: 94%;
+  //   border: 1px solid red;
+  margin-left: 70px;
+  margin-top: 20px;
   @media screen and (max-width: 767px) {
-    display: none;
+    // width: 100%;
+    padding: 0 12px;
+    margin-left: 0;
+    margin-top: 10px;
   }
 `
 export const ChannelDescriptionMobile = styled(ChannelDescription)`

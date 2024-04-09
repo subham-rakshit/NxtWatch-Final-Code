@@ -26,12 +26,10 @@ import {
   ReviewButtons,
   BreakingLine,
   VideoDetailsContainer,
-  ChannelDetailsContainer,
   ChannelLogo,
   ChannelName,
   SubscriberCount,
   ChannelDescription,
-  ChannelDescriptionMobile,
 } from './styledComponent'
 
 import ThemeContext from '../../context/ThemeContext'
@@ -51,7 +49,8 @@ class VideoItemDetailsRoute extends Component {
     videoItemDetails: {},
     isLikeClicked: false,
     isDislikeClicked: false,
-    isSaveClicked: false,
+    isSaveActiveInitial: false,
+    isSaveActiveLater: true,
   }
 
   componentDidMount() {
@@ -81,11 +80,9 @@ class VideoItemDetailsRoute extends Component {
       //   console.log(data)
       const updatedVideoDetails = {
         videoDetails: {
-          channel: {
-            name: data.video_details.channel.name,
-            profileImageUrl: data.video_details.channel.profile_image_url,
-            subscriberCount: data.video_details.channel.subscriber_count,
-          },
+          name: data.video_details.channel.name,
+          profileImageUrl: data.video_details.channel.profile_image_url,
+          subscriberCount: data.video_details.channel.subscriber_count,
           description: data.video_details.description,
           id: data.video_details.id,
           publishedAt: data.video_details.published_at,
@@ -110,8 +107,10 @@ class VideoItemDetailsRoute extends Component {
       videoItemDetails,
       isLikeClicked,
       isDislikeClicked,
-      isSaveClicked,
+      isSaveActiveInitial,
+      isSaveActiveLater,
     } = this.state
+    // console.log(videoItemDetails)
 
     const publishedTime = formatDistanceToNow(
       new Date(videoItemDetails.videoDetails.publishedAt),
@@ -123,7 +122,7 @@ class VideoItemDetailsRoute extends Component {
     return (
       <ThemeContext.Consumer>
         {value => {
-          const {isDark, updateVideoList, filterVideoList} = value
+          const {isDark, updateVideoList, isSaveBtnClicked, saveVideoId} = value
 
           const onClickedLikeButton = () => {
             this.setState({
@@ -140,20 +139,30 @@ class VideoItemDetailsRoute extends Component {
           }
 
           const callingUpdateVideoList = () => {
-            if (isSaveClicked) {
-              filterVideoList(videoItemDetails)
-            } else {
-              updateVideoList(videoItemDetails)
-            }
+            updateVideoList(videoItemDetails)
           }
 
           const onClickedSaveButton = () => {
-            this.setState(
-              {
-                isSaveClicked: !isSaveClicked,
-              },
-              callingUpdateVideoList,
-            )
+            if (saveVideoId !== '') {
+              this.setState(
+                {isSaveActiveLater: !isSaveActiveLater},
+                callingUpdateVideoList,
+              )
+            } else {
+              this.setState(
+                {
+                  isSaveActiveInitial: !isSaveActiveInitial,
+                },
+                callingUpdateVideoList,
+              )
+            }
+          }
+
+          let active
+          if (saveVideoId !== '') {
+            active = isSaveActiveLater
+          } else {
+            active = isSaveActiveInitial
           }
 
           return (
@@ -202,36 +211,31 @@ class VideoItemDetailsRoute extends Component {
                     type="button"
                     isDark={isDark}
                     onClick={onClickedSaveButton}
-                    color={isSaveClicked ? '#2563eb' : '#64748b'}
+                    color={active ? '#2563eb' : '#64748b'}
                   >
                     <MdPlaylistAdd size="18" />
-                    {isSaveClicked ? 'Saved' : 'Save'}
+                    {active ? 'Saved' : 'Save'}
                   </ReviewButtons>
                 </LikeDislikeAndSaveContainer>
               </ViewsAndLikeDislikeContainer>
               <BreakingLine isDark={isDark} />
               <VideoDetailsContainer>
                 <ChannelLogo
-                  src={videoItemDetails.videoDetails.channel.profileImageUrl}
+                  src={videoItemDetails.videoDetails.profileImageUrl}
                   alt="channel logo"
                 />
-                <ChannelDetailsContainer>
+                <div>
                   <ChannelName isDark={isDark}>
-                    {videoItemDetails.videoDetails.channel.name}
+                    {videoItemDetails.videoDetails.name}
                   </ChannelName>
                   <SubscriberCount isDark={isDark}>
-                    {videoItemDetails.videoDetails.channel.subscriberCount}{' '}
-                    subscribers
+                    {videoItemDetails.videoDetails.subscriberCount} subscribers
                   </SubscriberCount>
-
-                  <ChannelDescription isDark={isDark}>
-                    {videoItemDetails.videoDetails.description}
-                  </ChannelDescription>
-                </ChannelDetailsContainer>
+                </div>
               </VideoDetailsContainer>
-              <ChannelDescriptionMobile isDark={isDark}>
+              <ChannelDescription isDark={isDark}>
                 {videoItemDetails.videoDetails.description}
-              </ChannelDescriptionMobile>
+              </ChannelDescription>
             </>
           )
         }}

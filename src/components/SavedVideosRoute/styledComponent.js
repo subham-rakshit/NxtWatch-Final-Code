@@ -104,11 +104,12 @@ export const SaveVideoThumbnailImg = styled.img`
 
 // Video Details in Desktop Starts -->
 export const VideoDetailsContainer = styled.div`
-  display: inline-block;
   width: 100%;
   //   border: 1px solid red;
   @media screen and (max-width: 575px) {
-    display: none;
+    display: flex;
+    gap: 15px;
+    padding: 0 12px;
   }
 `
 
@@ -141,6 +142,9 @@ export const SaveVideoChannelName = styled.p`
   font-family: 'Roboto';
   margin-top: 15px;
   margin-bottom: 0;
+  @media screen and (max-width: 575px) {
+    margin-top: 10px;
+  }
 `
 export const SaveVideoViewsContainer = styled.div`
   display: flex;
@@ -148,7 +152,7 @@ export const SaveVideoViewsContainer = styled.div`
   margin-top: 15px;
   //   border: 1px solid red;
   @media screen and (max-width: 575px) {
-    margin-top: 10px;
+    margin-top: 0;
     margin-bottom: 10px;
   }
 `
@@ -157,26 +161,14 @@ export const SaveVideoViews = styled(SaveVideoChannelName)`
   margin-top: 0;
   //   border: 1px solid red;
 `
-// Video Details in Desktop End -->
-
-// Video Details in Mobile Start -->
-export const VideoDetailsContainerMobile = styled.div`
-  padding: 0 15px;
-  display: flex;
-  gap: 10px;
-  //   border: 1px solid red;
+export const ChannelLogoInMobile = styled.img`
+  width: 40px;
+  height: 40px;
   @media screen and (min-width: 576px) {
     display: none;
   }
 `
-export const ChannelLogoInMobile = styled.img`
-  width: 50px;
-  height: 50px;
-`
-export const SaveVideoChannelNameMobile = styled(SaveVideoChannelName)`
-  margin-top: 0;
-`
-// Video Details in Mobile End -->
+// Video Details in Desktop End -->
 
 export const NoSavedVideosContainer = styled.div`
   width: 100%;

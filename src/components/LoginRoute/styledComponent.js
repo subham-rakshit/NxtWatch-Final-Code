@@ -95,5 +95,5 @@ export const ErrorMsg = styled.p`
   font-size: 12px;
   font-weight: 500;
   font-family: 'Roboto';
-  margin-top: 2px;
+  margin-top: 10px;
 `

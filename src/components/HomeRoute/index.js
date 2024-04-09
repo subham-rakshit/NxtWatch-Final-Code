@@ -37,7 +37,6 @@ import {
   VideoDetailsContainer,
   VideoTitleText,
   VideoChannelName,
-  VideoViewsContainer,
   VideoViews,
   FailureContainer,
   FailureImage,
@@ -223,18 +222,14 @@ class HomeRoute extends Component {
                               <VideoChannelName isDark={isDark}>
                                 {video.channel.name}
                               </VideoChannelName>
-                              <VideoViewsContainer>
-                                <VideoViews
-                                  isDark={isDark}
-                                >{`${video.viewCount} views`}</VideoViews>
+                              <VideoViews isDark={isDark}>
+                                {video.viewCount} views{' '}
                                 <BsDot
                                   size="20"
                                   color={isDark ? '#94a3b8' : '#475569'}
-                                />
-                                <VideoViews isDark={isDark}>
-                                  {timeDistance}
-                                </VideoViews>
-                              </VideoViewsContainer>
+                                />{' '}
+                                {timeDistance}
+                              </VideoViews>
                             </VideoDetailsContainer>
                           </VideoDescriptionContainer>
                         </VideoItemContainer>

@@ -74,13 +74,6 @@ class LoginRoute extends Component {
       return <Redirect to="/" />
     }
 
-    let msgList
-    if (errorMsg.length > 0) {
-      msgList = errorMsg.split(' ')
-      msgList[0] = 'Username'
-      msgList[2] = 'Password'
-    }
-
     return (
       <ThemeContext.Consumer>
         {value => {
@@ -175,9 +168,7 @@ class LoginRoute extends Component {
                   {renderPasswordInput()}
                   {renderShowPasswordInput()}
                   <LoginButton type="submit">Login</LoginButton>
-                  {errorMsg.length > 0 && (
-                    <ErrorMsg>*{msgList.join(' ')}</ErrorMsg>
-                  )}
+                  {errorMsg.length > 0 && <ErrorMsg>*{errorMsg}</ErrorMsg>}
                 </FormContainer>
               </LoginContentCard>
             </LoginMainContainer>

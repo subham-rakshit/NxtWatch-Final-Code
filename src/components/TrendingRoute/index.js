@@ -31,9 +31,7 @@ import {
   TrendingVideoChannelName,
   TrendingVideoViewsContainer,
   TrendingVideoViews,
-  TrendingVideoDetailsContainerMobile,
   ChannelLogoInMobile,
-  TrendingVideoChannelNameMobile,
 } from './styledComponent'
 
 const apiStatusConstant = {
@@ -44,7 +42,7 @@ const apiStatusConstant = {
 }
 
 class TrendingRoute extends Component {
-  state = {trendingVideosData: {}, apiStatus: apiStatusConstant.initial}
+  state = {trendingVideosData: [], apiStatus: apiStatusConstant.initial}
 
   componentDidMount() {
     this.getTrendingVideosData()
@@ -66,12 +64,9 @@ class TrendingRoute extends Component {
 
     if (response.ok) {
       const data = await response.json()
-      // console.log(data)
       const updatedTrendingVideosData = data.videos.map(eachVideoDetails => ({
-        channel: {
-          name: eachVideoDetails.channel.name,
-          profileImageUrl: eachVideoDetails.channel.profile_image_url,
-        },
+        name: eachVideoDetails.channel.name,
+        profileImageUrl: eachVideoDetails.channel.profile_image_url,
         id: eachVideoDetails.id,
         publishedAt: eachVideoDetails.published_at,
         thumbnailUrl: eachVideoDetails.thumbnail_url,
@@ -138,44 +133,18 @@ class TrendingRoute extends Component {
 
                       {/* Video Details in desktop version ---> */}
                       <TrendingVideoDetailsContainer>
-                        <TrendingVideoTitle isDark={isDark}>
-                          {eachItem.title}
-                        </TrendingVideoTitle>
-                        <TrendingVideoChannelName isDark={isDark}>
-                          {eachItem.channel.name}
-                        </TrendingVideoChannelName>
-                        <TrendingVideoViewsContainer>
-                          <TrendingVideoViews isDark={isDark}>
-                            {eachItem.viewCount} views
-                          </TrendingVideoViews>
-                          <BsDot
-                            size="20"
-                            color={isDark ? '#94a3b8' : '#64748b'}
-                          />
-                          <TrendingVideoViews isDark={isDark}>
-                            {timeDistance}
-                          </TrendingVideoViews>
-                        </TrendingVideoViewsContainer>
-                      </TrendingVideoDetailsContainer>
-
-                      {/* Video Details in Mobile version ---> */}
-                      <TrendingVideoDetailsContainerMobile>
                         <ChannelLogoInMobile
-                          src={eachItem.channel.profileImageUrl}
+                          src={eachItem.profileImageUrl}
                           alt="channel logo"
                         />
                         <div>
                           <TrendingVideoTitle isDark={isDark}>
                             {eachItem.title}
                           </TrendingVideoTitle>
+                          <TrendingVideoChannelName isDark={isDark}>
+                            {eachItem.name}
+                          </TrendingVideoChannelName>
                           <TrendingVideoViewsContainer>
-                            <TrendingVideoChannelNameMobile isDark={isDark}>
-                              {eachItem.channel.name}
-                            </TrendingVideoChannelNameMobile>
-                            <BsDot
-                              size="20"
-                              color={isDark ? '#94a3b8' : '#64748b'}
-                            />
                             <TrendingVideoViews isDark={isDark}>
                               {eachItem.viewCount} views
                             </TrendingVideoViews>
@@ -183,12 +152,12 @@ class TrendingRoute extends Component {
                               size="20"
                               color={isDark ? '#94a3b8' : '#64748b'}
                             />
-                            <TrendingVideoViews isDark={isDark}>
+                            <TrendingVideoViews>
                               {timeDistance}
                             </TrendingVideoViews>
                           </TrendingVideoViewsContainer>
                         </div>
-                      </TrendingVideoDetailsContainerMobile>
+                      </TrendingVideoDetailsContainer>
                     </TrendingVideoItemContainer>
                   </Link>
                 )
@@ -210,7 +179,7 @@ class TrendingRoute extends Component {
           }
 
           return (
-            <TrendingMainContainer data-testid="trending">
+            <TrendingMainContainer>
               <Header />
               <TrendingContentContainer>
                 <NavigationItems />
