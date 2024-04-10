@@ -6,7 +6,6 @@ import Loader from 'react-loader-spinner'
 
 import {HiFire} from 'react-icons/hi'
 import {BsDot} from 'react-icons/bs'
-import {formatDistanceToNow} from 'date-fns'
 
 import Header from '../Header'
 import ThemeContext from '../../context/ThemeContext'
@@ -119,56 +118,48 @@ class TrendingRoute extends Component {
           // After Data fetch Trending Video UI Success View Start -->
           const renderTrendingVideosSuccessView = () => (
             <TrendingVideoListsContainer>
-              {trendingVideosData.map(eachItem => {
-                const timesTime = formatDistanceToNow(
-                  new Date(eachItem.publishedAt),
-                )
-                const timeList = timesTime.split(' ')
-                const timeDistance = `${timeList[1]} ${timeList[2]} ago`
+              {trendingVideosData.map(eachItem => (
+                <Link
+                  to={`/videos/${eachItem.id}`}
+                  className="trending-video-link"
+                  key={eachItem.id}
+                >
+                  <TrendingVideoItemContainer>
+                    <TrendingVideoThumbnailImg
+                      src={eachItem.thumbnailUrl}
+                      alt="video thumbnail"
+                    />
 
-                return (
-                  <Link
-                    to={`/videos/${eachItem.id}`}
-                    className="trending-video-link"
-                    key={eachItem.id}
-                  >
-                    <TrendingVideoItemContainer>
-                      <TrendingVideoThumbnailImg
-                        src={eachItem.thumbnailUrl}
-                        alt="video thumbnail"
+                    {/* Video Details in desktop version ---> */}
+                    <TrendingVideoDetailsContainer>
+                      <ChannelLogoInMobile
+                        src={eachItem.profileImageUrl}
+                        alt="channel logo"
                       />
-
-                      {/* Video Details in desktop version ---> */}
-                      <TrendingVideoDetailsContainer>
-                        <ChannelLogoInMobile
-                          src={eachItem.profileImageUrl}
-                          alt="channel logo"
-                        />
-                        <div>
-                          <TrendingVideoTitle isDark={isDark}>
-                            {eachItem.title}
-                          </TrendingVideoTitle>
-                          <TrendingVideoChannelName isDark={isDark}>
-                            {eachItem.name}
-                          </TrendingVideoChannelName>
-                          <TrendingVideoViewsContainer>
-                            <TrendingVideoViews isDark={isDark}>
-                              {eachItem.viewCount} views
-                            </TrendingVideoViews>
-                            <BsDot
-                              size="20"
-                              color={isDark ? '#94a3b8' : '#64748b'}
-                            />
-                            <TrendingVideoViews>
-                              {timeDistance}
-                            </TrendingVideoViews>
-                          </TrendingVideoViewsContainer>
-                        </div>
-                      </TrendingVideoDetailsContainer>
-                    </TrendingVideoItemContainer>
-                  </Link>
-                )
-              })}
+                      <div>
+                        <TrendingVideoTitle isDark={isDark}>
+                          {eachItem.title}
+                        </TrendingVideoTitle>
+                        <TrendingVideoChannelName isDark={isDark}>
+                          {eachItem.name}
+                        </TrendingVideoChannelName>
+                        <TrendingVideoViewsContainer>
+                          <TrendingVideoViews isDark={isDark}>
+                            {eachItem.viewCount} views
+                          </TrendingVideoViews>
+                          <BsDot
+                            size="20"
+                            color={isDark ? '#94a3b8' : '#64748b'}
+                          />
+                          <TrendingVideoViews>
+                            {eachItem.publishedAt}
+                          </TrendingVideoViews>
+                        </TrendingVideoViewsContainer>
+                      </div>
+                    </TrendingVideoDetailsContainer>
+                  </TrendingVideoItemContainer>
+                </Link>
+              ))}
             </TrendingVideoListsContainer>
           )
           // After Data fetch Trending Video UI Success View End -->

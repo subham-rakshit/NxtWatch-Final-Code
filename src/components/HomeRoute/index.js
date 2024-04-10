@@ -2,7 +2,6 @@ import {Component} from 'react'
 
 import Cookies from 'js-cookie'
 import {Link} from 'react-router-dom'
-import {formatDistanceToNow} from 'date-fns'
 import Loader from 'react-loader-spinner'
 
 import {MdClose} from 'react-icons/md'
@@ -199,49 +198,42 @@ class HomeRoute extends Component {
             <>
               {videoLists.length > 0 ? (
                 <VideoItemListsContainer>
-                  {videoLists.map(video => {
-                    const timesTime = formatDistanceToNow(
-                      new Date(video.publishedAt),
-                    )
-                    const timeList = timesTime.split(' ')
-                    const timeDistance = `${timeList[1]} ${timeList[2]} ago`
-                    return (
-                      <Link
-                        to={`/videos/${video.id}`}
-                        className="home-link"
-                        key={video.id}
-                      >
-                        <VideoItemContainer>
-                          <ThumbnailImage
-                            src={video.thumbnailUrl}
-                            alt="video thumbnail"
+                  {videoLists.map(video => (
+                    <Link
+                      to={`/videos/${video.id}`}
+                      className="home-link"
+                      key={video.id}
+                    >
+                      <VideoItemContainer>
+                        <ThumbnailImage
+                          src={video.thumbnailUrl}
+                          alt="video thumbnail"
+                        />
+                        <VideoDescriptionContainer>
+                          <ChannelLogo
+                            src={video.channel.profileImageUrl}
+                            alt="channel logo"
                           />
-                          <VideoDescriptionContainer>
-                            <ChannelLogo
-                              src={video.channel.profileImageUrl}
-                              alt="channel logo"
-                            />
-                            <VideoDetailsContainer>
-                              <VideoTitleText isDark={isDark}>
-                                {video.title}
-                              </VideoTitleText>
-                              <VideoChannelName isDark={isDark}>
-                                {video.channel.name}
-                              </VideoChannelName>
-                              <VideoViews isDark={isDark}>
-                                {video.viewCount} views{' '}
-                                <BsDot
-                                  size="20"
-                                  color={isDark ? '#94a3b8' : '#475569'}
-                                />{' '}
-                                {timeDistance}
-                              </VideoViews>
-                            </VideoDetailsContainer>
-                          </VideoDescriptionContainer>
-                        </VideoItemContainer>
-                      </Link>
-                    )
-                  })}
+                          <VideoDetailsContainer>
+                            <VideoTitleText isDark={isDark}>
+                              {video.title}
+                            </VideoTitleText>
+                            <VideoChannelName isDark={isDark}>
+                              {video.channel.name}
+                            </VideoChannelName>
+                            <VideoViews isDark={isDark}>
+                              {video.viewCount} views{' '}
+                              <BsDot
+                                size="20"
+                                color={isDark ? '#94a3b8' : '#475569'}
+                              />{' '}
+                              {video.publishedAt}
+                            </VideoViews>
+                          </VideoDetailsContainer>
+                        </VideoDescriptionContainer>
+                      </VideoItemContainer>
+                    </Link>
+                  ))}
                 </VideoItemListsContainer>
               ) : (
                 <FailureContainer>

@@ -1,5 +1,3 @@
-import {Component} from 'react'
-
 import {Link, withRouter} from 'react-router-dom'
 
 import {AiFillHome} from 'react-icons/ai'
@@ -23,108 +21,104 @@ import {
   ContactUsDescription,
 } from './styledComponent'
 
-class NavigationItems extends Component {
-  renderNavigationItemsContainer = () => (
-    <ThemeContext.Consumer>
-      {value => {
-        const {isDark, changeTab} = value
+const renderContactUsSection = isDark => (
+  <ContactUsSection>
+    <ContactUsHeading isDark={isDark}>CONTACT US</ContactUsHeading>
+    <ContactLinkContainer>
+      <li>
+        <ContactLinkImg
+          src="https://assets.ccbp.in/frontend/react-js/nxt-watch-facebook-logo-img.png"
+          alt="facebook logo"
+        />
+      </li>
+      <li>
+        <ContactLinkImg
+          src="https://assets.ccbp.in/frontend/react-js/nxt-watch-twitter-logo-img.png"
+          alt="twitter logo"
+        />
+      </li>
+      <li>
+        <ContactLinkImg
+          src="https://assets.ccbp.in/frontend/react-js/nxt-watch-linked-in-logo-img.png"
+          alt="linked in logo"
+        />
+      </li>
+    </ContactLinkContainer>
+    <ContactUsDescription isDark={isDark}>
+      Enjoy! Now to see your channels and recommendations!
+    </ContactUsDescription>
+  </ContactUsSection>
+)
 
-        const onClickedHomeTab = () => {
-          changeTab('Home')
-        }
+const renderNavigationItemsContainer = () => (
+  <ThemeContext.Consumer>
+    {value => {
+      const {isDark, changeTab} = value
 
-        const onClickedTrendingTab = () => {
-          changeTab('Trending')
-        }
+      const onClickedHomeTab = () => {
+        changeTab('Home')
+      }
 
-        const onClickedGamingTab = () => {
-          changeTab('Gaming')
-        }
+      const onClickedTrendingTab = () => {
+        changeTab('Trending')
+      }
 
-        const onClickedSavedTab = () => {
-          changeTab('Saved')
-        }
+      const onClickedGamingTab = () => {
+        changeTab('Gaming')
+      }
 
-        return (
-          <NavigationItemsContainer>
-            <Link to="/" className="link">
-              <NavItem onClick={onClickedHomeTab} key="home">
-                <AiFillHome size="18" color="#909090" />
-                <NavItemText isDark={isDark}>Home</NavItemText>
-              </NavItem>
-            </Link>
+      const onClickedSavedTab = () => {
+        changeTab('Saved')
+      }
 
-            <Link to="/trending" className="link">
-              <NavItem onClick={onClickedTrendingTab} key="trending">
-                <HiFire size="18" color="#909090" />
-                <NavItemText isDark={isDark}>Trending</NavItemText>
-              </NavItem>
-            </Link>
+      return (
+        <NavigationItemsContainer>
+          <Link to="/" className="link">
+            <NavItem onClick={onClickedHomeTab} key="home">
+              <AiFillHome size="18" color="#909090" />
+              <NavItemText isDark={isDark}>Home</NavItemText>
+            </NavItem>
+          </Link>
 
-            <Link to="/gaming" className="link">
-              <NavItem onClick={onClickedGamingTab} key="gaming">
-                <SiYoutubegaming size="18" color="#909090" />
-                <NavItemText isDark={isDark}>Gaming</NavItemText>
-              </NavItem>
-            </Link>
+          <Link to="/trending" className="link">
+            <NavItem onClick={onClickedTrendingTab} key="trending">
+              <HiFire size="18" color="#909090" />
+              <NavItemText isDark={isDark}>Trending</NavItemText>
+            </NavItem>
+          </Link>
 
-            <Link to="/saved-videos" className="link">
-              <NavItem onClick={onClickedSavedTab} key="saved">
-                <MdPlaylistAdd size="18" color="#909090" />
-                <NavItemText isDark={isDark}>Saved videos</NavItemText>
-              </NavItem>
-            </Link>
-          </NavigationItemsContainer>
-        )
-      }}
-    </ThemeContext.Consumer>
-  )
+          <Link to="/gaming" className="link">
+            <NavItem onClick={onClickedGamingTab} key="gaming">
+              <SiYoutubegaming size="18" color="#909090" />
+              <NavItemText isDark={isDark}>Gaming</NavItemText>
+            </NavItem>
+          </Link>
 
-  renderContactUsSection = isDark => (
-    <ContactUsSection>
-      <ContactUsHeading isDark={isDark}>CONTACT US</ContactUsHeading>
-      <ContactLinkContainer>
-        <li>
-          <ContactLinkImg
-            src="https://assets.ccbp.in/frontend/react-js/nxt-watch-facebook-logo-img.png"
-            alt="facebook logo"
-          />
-        </li>
-        <li>
-          <ContactLinkImg
-            src="https://assets.ccbp.in/frontend/react-js/nxt-watch-twitter-logo-img.png"
-            alt="twitter logo"
-          />
-        </li>
-        <li>
-          <ContactLinkImg
-            src="https://assets.ccbp.in/frontend/react-js/nxt-watch-linked-in-logo-img.png"
-            alt="linked in logo"
-          />
-        </li>
-      </ContactLinkContainer>
-      <ContactUsDescription isDark={isDark}>
-        Enjoy! Now to see your channels and recommendations!
-      </ContactUsDescription>
-    </ContactUsSection>
-  )
+          <Link to="/saved-videos" className="link">
+            <NavItem onClick={onClickedSavedTab} key="saved">
+              <MdPlaylistAdd size="18" color="#909090" />
+              <NavItemText isDark={isDark}>Saved videos</NavItemText>
+            </NavItem>
+          </Link>
+        </NavigationItemsContainer>
+      )
+    }}
+  </ThemeContext.Consumer>
+)
 
-  render() {
-    return (
-      <ThemeContext.Consumer>
-        {value => {
-          const {isDark} = value
+const VideoItemDetailsNavigationItems = () => (
+  <ThemeContext.Consumer>
+    {value => {
+      const {isDark} = value
 
-          return (
-            <LeftNavigationContainer isDark={isDark}>
-              {this.renderNavigationItemsContainer()}
-              {this.renderContactUsSection(isDark)}
-            </LeftNavigationContainer>
-          )
-        }}
-      </ThemeContext.Consumer>
-    )
-  }
-}
+      return (
+        <LeftNavigationContainer isDark={isDark}>
+          {renderNavigationItemsContainer()}
+          {renderContactUsSection(isDark)}
+        </LeftNavigationContainer>
+      )
+    }}
+  </ThemeContext.Consumer>
+)
 
-export default withRouter(NavigationItems)
+export default withRouter(VideoItemDetailsNavigationItems)

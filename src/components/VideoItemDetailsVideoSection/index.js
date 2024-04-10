@@ -1,8 +1,6 @@
 import ReactPlayer from 'react-player'
 import {BiLike, BiDislike} from 'react-icons/bi'
 
-import {formatDistanceToNow} from 'date-fns'
-
 import {MdPlaylistAdd} from 'react-icons/md'
 import {BsDot} from 'react-icons/bs'
 
@@ -64,12 +62,6 @@ const VideoItemDetailsVideoSection = props => {
 
         const saveIconColor = isSaved ? '#2563eb' : textColor
 
-        const publishedTime = formatDistanceToNow(
-          new Date(videoItemDetails.videoDetails.publishedAt),
-        )
-        const timeList = publishedTime.split(' ')
-        const updatedPublishedTime = `${timeList[1]} ${timeList[2]} ago`
-
         // By Clicking Save btn, calling Context video data storing function which will store the videoItemData in Context for future usage -->
         const onClickSave = () => {
           updateVideoList(videoItemDetails)
@@ -95,7 +87,7 @@ const VideoItemDetailsVideoSection = props => {
                 </ViewsAndPublishedText>
                 <BsDot size="20" color="#475569" />
                 <ViewsAndPublishedText isDark={isDark}>
-                  {updatedPublishedTime}
+                  {videoItemDetails.videoDetails.publishedAt}
                 </ViewsAndPublishedText>
               </ViewsAndPublishedContainer>
               <LikeDislikeAndSaveContainer>

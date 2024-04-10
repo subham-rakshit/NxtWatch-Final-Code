@@ -2,7 +2,6 @@ import {Link} from 'react-router-dom'
 
 import {HiFire} from 'react-icons/hi'
 import {BsDot} from 'react-icons/bs'
-import {formatDistanceToNow} from 'date-fns'
 
 import Header from '../Header'
 import ThemeContext from '../../context/ThemeContext'
@@ -40,55 +39,44 @@ const SavedVideosRoute = () => (
 
       const renderListOfSaveVideos = () => (
         <SaveVideoListsContainer>
-          {saveVideoList.map(eachItem => {
-            const timesTime = formatDistanceToNow(
-              new Date(eachItem.videoDetails.publishedAt),
-            )
-            const timeList = timesTime.split(' ')
-            const timeDistance = `${timeList[1]} ${timeList[2]} ago`
+          {saveVideoList.map(eachItem => (
+            <Link
+              to={`/videos/${eachItem.videoDetails.id}`}
+              className="save-video-link"
+              key={eachItem.videoDetails.id}
+            >
+              <SaveVideoItemContainer>
+                <SaveVideoThumbnailImg
+                  src={eachItem.videoDetails.thumbnailUrl}
+                  alt="video thumbnail"
+                />
 
-            return (
-              <Link
-                to={`/videos/${eachItem.videoDetails.id}`}
-                className="save-video-link"
-                key={eachItem.videoDetails.id}
-              >
-                <SaveVideoItemContainer>
-                  <SaveVideoThumbnailImg
-                    src={eachItem.videoDetails.thumbnailUrl}
-                    alt="video thumbnail"
+                <VideoDetailsContainer>
+                  <ChannelLogoInMobile
+                    src={eachItem.videoDetails.profileImageUrl}
+                    alt="channel logo"
                   />
-
-                  <VideoDetailsContainer>
-                    <ChannelLogoInMobile
-                      src={eachItem.videoDetails.profileImageUrl}
-                      alt="channel logo"
-                    />
-                    <div>
-                      <SaveVideoTitle isDark={isDark}>
-                        {eachItem.videoDetails.title}
-                      </SaveVideoTitle>
-                      <SaveVideoChannelName isDark={isDark}>
-                        {eachItem.videoDetails.name}
-                      </SaveVideoChannelName>
-                      <SaveVideoViewsContainer>
-                        <SaveVideoViews isDark={isDark}>
-                          {eachItem.videoDetails.viewCount} views
-                        </SaveVideoViews>
-                        <BsDot
-                          size="20"
-                          color={isDark ? '#94a3b8' : '#64748b'}
-                        />
-                        <SaveVideoViews isDark={isDark}>
-                          {timeDistance}
-                        </SaveVideoViews>
-                      </SaveVideoViewsContainer>
-                    </div>
-                  </VideoDetailsContainer>
-                </SaveVideoItemContainer>
-              </Link>
-            )
-          })}
+                  <div>
+                    <SaveVideoTitle isDark={isDark}>
+                      {eachItem.videoDetails.title}
+                    </SaveVideoTitle>
+                    <SaveVideoChannelName isDark={isDark}>
+                      {eachItem.videoDetails.name}
+                    </SaveVideoChannelName>
+                    <SaveVideoViewsContainer>
+                      <SaveVideoViews isDark={isDark}>
+                        {eachItem.videoDetails.viewCount} views
+                      </SaveVideoViews>
+                      <BsDot size="20" color={isDark ? '#94a3b8' : '#64748b'} />
+                      <SaveVideoViews isDark={isDark}>
+                        {eachItem.videoDetails.publishedAt}
+                      </SaveVideoViews>
+                    </SaveVideoViewsContainer>
+                  </div>
+                </VideoDetailsContainer>
+              </SaveVideoItemContainer>
+            </Link>
+          ))}
         </SaveVideoListsContainer>
       )
 

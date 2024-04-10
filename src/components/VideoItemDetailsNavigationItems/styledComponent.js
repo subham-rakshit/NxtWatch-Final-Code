@@ -20,6 +20,7 @@ export const NavigationItemsContainer = styled.ul`
   display: flex;
   flex-direction: column;
   margin-top: 0;
+  gap: 5px;
 `
 export const NavItem = styled.li`
   background-color: ${props => props.bgColor};
@@ -35,7 +36,7 @@ export const NavItem = styled.li`
 export const NavItemText = styled.h1`
   color: ${props => (props.isDark ? '#f9f9f9' : '#231f20')};
   font-size: 13px;
-  font-weight: 500;
+  font-weight: normal;
   font-family: 'Roboto';
 `
 export const ContactUsSection = styled.div`
