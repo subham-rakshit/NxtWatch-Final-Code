@@ -64,6 +64,7 @@ class HomeRoute extends Component {
     this.getVideoListsData()
   }
 
+  // Home Videos Data API Call Start -->
   getVideoListsData = async () => {
     this.setState({apiStatus: apiStatusConstant.inProgress})
 
@@ -100,7 +101,9 @@ class HomeRoute extends Component {
       this.setState({apiStatus: apiStatusConstant.failure})
     }
   }
+  // Home Videos Data API Call End -->
 
+  // Prime Deal Section Start -->
   removePrimeDealSection = () => {
     this.setState({primeIsVisible: false})
   }
@@ -135,7 +138,9 @@ class HomeRoute extends Component {
       </>
     )
   }
+  // Prime Deal Section End -->
 
+  // Home Search Box Start -->
   updateSearchInput = event => {
     this.setState({searchInput: event.target.value})
   }
@@ -175,8 +180,10 @@ class HomeRoute extends Component {
       </ThemeContext.Consumer>
     )
   }
+  // Home Search Box End -->
 
-  renderVideoItems = () => {
+  // After Data fetch Home Videos Success View Start -->
+  renderHomeVideosContentSuccessView = () => {
     const {videoLists} = this.state
 
     return (
@@ -196,7 +203,6 @@ class HomeRoute extends Component {
                     const timesTime = formatDistanceToNow(
                       new Date(video.publishedAt),
                     )
-                    /* console.log(timesTime) */
                     const timeList = timesTime.split(' ')
                     const timeDistance = `${timeList[1]} ${timeList[2]} ago`
                     return (
@@ -260,9 +266,9 @@ class HomeRoute extends Component {
       </ThemeContext.Consumer>
     )
   }
+  // After Data fetch Home Videos Success View End -->
 
-  renderHomeVideosContentSuccessView = () => <>{this.renderVideoItems()}</>
-
+  // After Data fetch Home Videos Failure View Start -->
   onClickedAPIRetry = () => {
     this.getVideoListsData()
   }
@@ -270,7 +276,9 @@ class HomeRoute extends Component {
   renderHomeVideosContentFailureView = () => (
     <ApiFailureView onClickedAPIRetry={this.onClickedAPIRetry} />
   )
+  // After Data fetch Home Videos Failure View End -->
 
+  // After Data fetch Home Videos Loading View Start -->
   renderHomeVideoContentInProgressView = () => (
     <ThemeContext.Consumer>
       {value => {
@@ -289,7 +297,9 @@ class HomeRoute extends Component {
       }}
     </ThemeContext.Consumer>
   )
+  // After Data fetch Home Videos Loading View End -->
 
+  // After Data fetch showcasing Home Videos Views by switch cases -->
   renderHomeVideoListsContentViews = () => {
     const {apiStatus} = this.state
 

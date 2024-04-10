@@ -14,26 +14,26 @@ import NotFound from './components/NotFound'
 
 import './App.css'
 
-// Replace your code here
 class App extends Component {
   state = {
     isDark: false,
-    isSaveBtnClicked: false,
     activeTab: 'Home',
     saveVideoList: [],
-    saveVideoId: '',
   }
 
+  //   Update Theme as Dark or Light -->
   updateTheme = () => {
     const {isDark} = this.state
 
     this.setState({isDark: !isDark})
   }
 
+  //   Change Navigation Tab -->
   changeTab = tabName => {
     this.setState({activeTab: tabName})
   }
 
+  //   Update Video Lists for SaveVideosRoute -->
   updateVideoList = videoItemDetails => {
     const {saveVideoList} = this.state
     const index = saveVideoList.findIndex(
@@ -43,49 +43,25 @@ class App extends Component {
     if (index === -1) {
       this.setState({
         saveVideoList: [...saveVideoList, videoItemDetails],
-        saveVideoId: '',
       })
     } else {
       saveVideoList.splice(index, 1)
-      this.setState({saveVideoList, saveVideoId: ''})
+      this.setState({saveVideoList})
     }
   }
 
-  //   removeVideo = id => {
-  //     const {saveVideoList} = this.state
-  //     const updatedSaveVideos = saveVideoList.filter(
-  //       eachVideo => eachVideo.videoDetails.id !== id,
-  //     )
-  //     this.setState({saveVideoList: updatedSaveVideos, saveVideoId: ''})
-  //   }
-
-  updateVideoSavedStatus = id => {
-    const {isSaveBtnClicked} = this.state
-    this.setState({saveVideoId: id, isSaveBtnClicked: !isSaveBtnClicked})
-  }
-
   render() {
-    const {
-      isDark,
-      activeTab,
-      saveVideoList,
-      saveVideoId,
-      isSaveBtnClicked,
-    } = this.state
-    console.log(saveVideoId)
+    const {isDark, activeTab, saveVideoList} = this.state
     return (
       <>
         <ThemeContext.Provider
           value={{
             isDark,
             activeTab,
-            isSaveBtnClicked,
+            saveVideoList,
             updateTheme: this.updateTheme,
             changeTab: this.changeTab,
-            saveVideoList,
             updateVideoList: this.updateVideoList,
-            saveVideoId,
-            updateVideoSavedStatus: this.updateVideoSavedStatus,
           }}
         >
           <Switch>

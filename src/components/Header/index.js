@@ -35,15 +35,13 @@ import {
 } from './styledComponent'
 
 const Header = props => (
+  // Data extract from Context -->
   <ThemeContext.Consumer>
     {value => {
       const {isDark, updateTheme, activeTab, changeTab} = value
       const activeTabBg = isDark ? '#313131' : '#e2e8f0'
 
-      const changeTheme = () => {
-        updateTheme()
-      }
-
+      // Onclick Logout Btn event -->
       const onClickedLogOut = () => {
         const {history} = props
 
@@ -51,15 +49,27 @@ const Header = props => (
         history.replace('/login')
       }
 
+      // Onclick Theme Change Btn event -->
+      const changeTheme = () => {
+        updateTheme()
+      }
+
+      // Onclick Home Tab event -->
       const onClickedHomeTab = () => {
         changeTab('Home')
       }
+
+      // Onclick Trending Tab event -->
       const onClickedTrendingTab = () => {
         changeTab('Trending')
       }
+
+      // Onclick Gaming Tab event -->
       const onClickedGamingTab = () => {
         changeTab('Gaming')
       }
+
+      // Onclick Saved Tab event -->
       const onClickedSavedTab = () => {
         changeTab('Saved')
       }

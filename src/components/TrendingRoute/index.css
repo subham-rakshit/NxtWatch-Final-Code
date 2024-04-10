@@ -1,10 +1,8 @@
 .trending-video-link {
   text-decoration: none;
   width: 100%;
-  /* border: 1px solid red; */
 }
 .loader-container {
-  /* border: 1px solid red; */
   display: flex;
   justify-content: center;
   align-items: center;

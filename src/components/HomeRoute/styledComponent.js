@@ -6,10 +6,9 @@ export const HomeMainContainer = styled.div`
 export const HomeContentContainer = styled.div`
   height: 90%;
   display: flex;
-  //   border: 1px solid red;
 `
 
-// **** Home RIGHT --> ****
+// **** Home RIGHT Start --> ****
 
 export const RightContainer = styled.div`
   width: 80%;
@@ -21,13 +20,12 @@ export const RightContainer = styled.div`
   padding: 0;
   overflow: auto;
   background-color: ${props => (props.isDark ? '#181818' : '#f9f9f9')};
-  //   border: 1px solid green;
+
   @media screen and (max-width: 767px) {
     width: 100%;
   }
   @media screen and (min-width: 992px) {
     width: 84%;
-    // border: 1px solid red;
   }
   ::-webkit-scrollbar {
     display: none;
@@ -46,13 +44,11 @@ export const PrimeMemberContainer = styled.div`
   @media screen and (max-width: 767px) {
     height: 30%;
     padding: 20px 20px;
-    // border: 1px solid red;
   }
 `
 export const PrimePlansContainer = styled.div`
   width: 38%;
   height: 100%;
-  //   border: 1px solid red;
   @media screen and (max-width: 767px) {
     width: 80%;
   }
@@ -101,7 +97,6 @@ export const GetItNowBtn = styled.button`
 export const HomeVideoListMainContainer = styled.div`
   width: 95%;
   margin: 20px 0;
-  //   border: 1px solid red;
   @media screen and (max-width: 575px) {
     width: 100%;
   }
@@ -151,7 +146,6 @@ export const VideoItemListsContainer = styled.ul`
   gap: 20px;
   list-style-type: none;
   padding-left: 0;
-  //   border: 1px solid red;
   @media screen and (max-width: 767px) {
     gap: 12px;
   }
@@ -162,14 +156,11 @@ export const VideoItemContainer = styled.li`
   display: flex;
   flex-direction: column;
   cursor: pointer;
-  //   border: 1px solid green;
   @media screen and (max-width: 575px) {
-    // border: 1px solid blue;
     width: 100%;
     height: 300px;
   }
   @media screen and (max-width: 767px) and (min-width: 576px) {
-    // border: 1px solid black;
     width: 250px;
     height: 280px;
   }
@@ -182,7 +173,6 @@ export const ThumbnailImage = styled.img`
   width: 100%;
   height: 56%;
   object-fit: cover;
-  // border: 1px solid red;
   @media screen and (max-width: 575px) {
     width: 100%;
     height: 60%;
@@ -218,7 +208,6 @@ export const VideoChannelName = styled.p`
   font-family: 'Roboto';
   margin-top: 10px;
   margin-bottom: 0;
-  //   border: 1px solid red;
 `
 
 export const VideoViews = styled.p`
@@ -229,10 +218,10 @@ export const VideoViews = styled.p`
   margin-top: 8px;
   display: flex;
   align-items: center;
-  //   border: 1px solid red;
 `
+// **** Home RIGHT End --> ****
 
-// Failure -->
+// **** Failure Start --> ****
 
 export const FailureContainer = styled.div`
   display: flex;
@@ -240,7 +229,6 @@ export const FailureContainer = styled.div`
   justify-content: center;
   align-items: center;
   margin-top: 20px;
-  //   border: 1px solid red;
 `
 export const FailureImage = styled.img`
   width: 300px;
@@ -289,3 +277,4 @@ export const RetryButton = styled.button`
     padding: 10px 25px;
   }
 `
+// **** Failure End --> ****

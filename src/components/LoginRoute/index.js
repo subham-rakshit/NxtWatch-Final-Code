@@ -27,8 +27,7 @@ class LoginRoute extends Component {
     errorMsg: '',
   }
 
-  // Submit From -->
-
+  // Submit From Success -->
   onSubmitSuccess = jwtToken => {
     Cookies.set('jwt_token', jwtToken, {
       expires: 30,
@@ -38,11 +37,12 @@ class LoginRoute extends Component {
     history.replace('/')
   }
 
+  // Submit From Failure -->
   onSubmitFailure = errorMsg => {
-    // console.log(errorMsg)
     this.setState({errorMsg})
   }
 
+  // Submit form functionality -->
   onSubmitLoginForm = async event => {
     event.preventDefault()
 
@@ -80,7 +80,6 @@ class LoginRoute extends Component {
           const {isDark} = value
 
           //   Username Input -->
-
           const getUpdateUsername = event => {
             this.setState({usernameInput: event.target.value})
           }
@@ -106,7 +105,6 @@ class LoginRoute extends Component {
           }
 
           //   Password Input -->
-
           const getUpdatePassword = event => {
             this.setState({passwordInput: event.target.value})
           }
@@ -132,7 +130,6 @@ class LoginRoute extends Component {
           }
 
           //   ShowPassword Input -->
-
           const passwordIsVisible = () => {
             const {isShowPassword} = this.state
 

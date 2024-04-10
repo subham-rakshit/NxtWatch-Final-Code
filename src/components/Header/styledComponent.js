@@ -6,7 +6,6 @@ export const Navbar = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 8px 35px;
-  //   border: 1px solid red;
   background-color: ${props => (props.isDark ? '#231f20' : '#f1f5f9')};
   @media screen and (max-width: 767px) {
     padding: 0 15px;
@@ -23,7 +22,6 @@ export const NavItemContainer = styled.div`
   display: flex;
   align-items: center;
   gap: 40px;
-  //   border: 1px solid red;
   @media screen and (max-width: 767px) {
     gap: 20px;
   }
@@ -124,7 +122,6 @@ export const PopupMenuContainer = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
-  //   border: 1px solid red;
 `
 export const PopupMenuNavTabContainer = styled.ul`
   list-style-type: none;
@@ -134,11 +131,9 @@ export const PopupMenuNavTabContainer = styled.ul`
   margin-top: auto;
   margin-bottom: auto;
   background-color: transparent;
-  //   border: 1px solid red;
 `
 export const PopupMenuTabItem = styled.li`
   background-color: ${props => props.bgColor};
-  //   border: 1px solid red;
 `
 export const TabItemContent = styled.div`
   width: 60%;
@@ -146,12 +141,10 @@ export const TabItemContent = styled.div`
   align-items: center;
   margin-left: auto;
   gap: 15px;
-  //   border: 1px solid red;
 `
 export const PopupMenuTabItemText = styled.p`
   color: ${props => (props.isDark ? '#cbd5e1' : '#231f20')};
   font-size: 16px;
   font-weight: ${props => props.fontWeight};
   font-family: 'Roboto';
-  //   border: 1px solid red;
 `

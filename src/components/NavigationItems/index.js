@@ -1,5 +1,3 @@
-import {Component} from 'react'
-
 import {Link, withRouter} from 'react-router-dom'
 
 import {AiFillHome} from 'react-icons/ai'
@@ -23,157 +21,157 @@ import {
   ContactUsDescription,
 } from './styledComponent'
 
-class NavigationItems extends Component {
-  renderNavigationItemsContainer = () => (
-    <ThemeContext.Consumer>
-      {value => {
-        const {isDark, activeTab, changeTab} = value
-        const activeTabBg = isDark ? '#313131' : '#e2e8f0'
+// ContactUs Section Start -->
+const renderContactUsSection = isDark => (
+  <ContactUsSection>
+    <ContactUsHeading isDark={isDark}>CONTACT US</ContactUsHeading>
+    <ContactLinkContainer>
+      <li>
+        <ContactLinkImg
+          src="https://assets.ccbp.in/frontend/react-js/nxt-watch-facebook-logo-img.png"
+          alt="facebook logo"
+        />
+      </li>
+      <li>
+        <ContactLinkImg
+          src="https://assets.ccbp.in/frontend/react-js/nxt-watch-twitter-logo-img.png"
+          alt="twitter logo"
+        />
+      </li>
+      <li>
+        <ContactLinkImg
+          src="https://assets.ccbp.in/frontend/react-js/nxt-watch-linked-in-logo-img.png"
+          alt="linked in logo"
+        />
+      </li>
+    </ContactLinkContainer>
+    <ContactUsDescription isDark={isDark}>
+      Enjoy! Now to see your channels and recommendations!
+    </ContactUsDescription>
+  </ContactUsSection>
+)
+// ContactUs Section End -->
 
-        const onClickedHomeTab = () => {
-          changeTab('Home')
-        }
+// Navigation Item Tabs Start -->
+const renderNavigationItemsContainer = () => (
+  <ThemeContext.Consumer>
+    {value => {
+      const {isDark, activeTab, changeTab} = value
+      const activeTabBg = isDark ? '#313131' : '#e2e8f0'
 
-        const onClickedTrendingTab = () => {
-          changeTab('Trending')
-        }
+      const onClickedHomeTab = () => {
+        changeTab('Home')
+      }
 
-        const onClickedGamingTab = () => {
-          changeTab('Gaming')
-        }
+      const onClickedTrendingTab = () => {
+        changeTab('Trending')
+      }
 
-        const onClickedSavedTab = () => {
-          changeTab('Saved')
-        }
+      const onClickedGamingTab = () => {
+        changeTab('Gaming')
+      }
 
-        return (
-          <NavigationItemsContainer>
-            <Link to="/" className="link">
-              <NavItem
-                onClick={onClickedHomeTab}
-                key="home"
-                bgColor={activeTab === 'Home' ? activeTabBg : 'none'}
+      const onClickedSavedTab = () => {
+        changeTab('Saved')
+      }
+
+      return (
+        <NavigationItemsContainer>
+          <Link to="/" className="link">
+            <NavItem
+              onClick={onClickedHomeTab}
+              key="home"
+              bgColor={activeTab === 'Home' ? activeTabBg : 'none'}
+            >
+              <AiFillHome
+                size="18"
+                color={activeTab === 'Home' ? '#ff0000' : '#909090'}
+              />
+              <NavItemText
+                isDark={isDark}
+                fontWeight={activeTab === 'Home' ? 'bold' : 'normal'}
               >
-                <AiFillHome
-                  size="18"
-                  color={activeTab === 'Home' ? '#ff0000' : '#909090'}
-                />
-                <NavItemText
-                  isDark={isDark}
-                  fontWeight={activeTab === 'Home' ? 'bold' : 'normal'}
-                >
-                  Home
-                </NavItemText>
-              </NavItem>
-            </Link>
+                Home
+              </NavItemText>
+            </NavItem>
+          </Link>
 
-            <Link to="/trending" className="link">
-              <NavItem
-                onClick={onClickedTrendingTab}
-                key="trending"
-                bgColor={activeTab === 'Trending' ? activeTabBg : 'none'}
+          <Link to="/trending" className="link">
+            <NavItem
+              onClick={onClickedTrendingTab}
+              key="trending"
+              bgColor={activeTab === 'Trending' ? activeTabBg : 'none'}
+            >
+              <HiFire
+                size="18"
+                color={activeTab === 'Trending' ? '#ff0000' : '#909090'}
+              />
+              <NavItemText
+                isDark={isDark}
+                fontWeight={activeTab === 'Trending' ? 'bold' : 'normal'}
               >
-                <HiFire
-                  size="18"
-                  color={activeTab === 'Trending' ? '#ff0000' : '#909090'}
-                />
-                <NavItemText
-                  isDark={isDark}
-                  fontWeight={activeTab === 'Trending' ? 'bold' : 'normal'}
-                >
-                  Trending
-                </NavItemText>
-              </NavItem>
-            </Link>
+                Trending
+              </NavItemText>
+            </NavItem>
+          </Link>
 
-            <Link to="/gaming" className="link">
-              <NavItem
-                onClick={onClickedGamingTab}
-                key="gaming"
-                bgColor={activeTab === 'Gaming' ? activeTabBg : 'none'}
+          <Link to="/gaming" className="link">
+            <NavItem
+              onClick={onClickedGamingTab}
+              key="gaming"
+              bgColor={activeTab === 'Gaming' ? activeTabBg : 'none'}
+            >
+              <SiYoutubegaming
+                size="18"
+                color={activeTab === 'Gaming' ? '#ff0000' : '#909090'}
+              />
+              <NavItemText
+                isDark={isDark}
+                fontWeight={activeTab === 'Gaming' ? 'bold' : 'normal'}
               >
-                <SiYoutubegaming
-                  size="18"
-                  color={activeTab === 'Gaming' ? '#ff0000' : '#909090'}
-                />
-                <NavItemText
-                  isDark={isDark}
-                  fontWeight={activeTab === 'Gaming' ? 'bold' : 'normal'}
-                >
-                  Gaming
-                </NavItemText>
-              </NavItem>
-            </Link>
+                Gaming
+              </NavItemText>
+            </NavItem>
+          </Link>
 
-            <Link to="/saved-videos" className="link">
-              <NavItem
-                onClick={onClickedSavedTab}
-                key="saved"
-                bgColor={activeTab === 'Saved' ? activeTabBg : 'none'}
+          <Link to="/saved-videos" className="link">
+            <NavItem
+              onClick={onClickedSavedTab}
+              key="saved"
+              bgColor={activeTab === 'Saved' ? activeTabBg : 'none'}
+            >
+              <MdPlaylistAdd
+                size="18"
+                color={activeTab === 'Saved' ? '#ff0000' : '#909090'}
+              />
+              <NavItemText
+                isDark={isDark}
+                fontWeight={activeTab === 'Saved' ? 'bold' : 'normal'}
               >
-                <MdPlaylistAdd
-                  size="18"
-                  color={activeTab === 'Saved' ? '#ff0000' : '#909090'}
-                />
-                <NavItemText
-                  isDark={isDark}
-                  fontWeight={activeTab === 'Saved' ? 'bold' : 'normal'}
-                >
-                  Saved videos
-                </NavItemText>
-              </NavItem>
-            </Link>
-          </NavigationItemsContainer>
-        )
-      }}
-    </ThemeContext.Consumer>
-  )
+                Saved videos
+              </NavItemText>
+            </NavItem>
+          </Link>
+        </NavigationItemsContainer>
+      )
+    }}
+  </ThemeContext.Consumer>
+)
+// Navigation Item Tabs End -->
 
-  renderContactUsSection = isDark => (
-    <ContactUsSection>
-      <ContactUsHeading isDark={isDark}>CONTACT US</ContactUsHeading>
-      <ContactLinkContainer>
-        <li>
-          <ContactLinkImg
-            src="https://assets.ccbp.in/frontend/react-js/nxt-watch-facebook-logo-img.png"
-            alt="facebook logo"
-          />
-        </li>
-        <li>
-          <ContactLinkImg
-            src="https://assets.ccbp.in/frontend/react-js/nxt-watch-twitter-logo-img.png"
-            alt="twitter logo"
-          />
-        </li>
-        <li>
-          <ContactLinkImg
-            src="https://assets.ccbp.in/frontend/react-js/nxt-watch-linked-in-logo-img.png"
-            alt="linked in logo"
-          />
-        </li>
-      </ContactLinkContainer>
-      <ContactUsDescription isDark={isDark}>
-        Enjoy! Now to see your channels and recommendations!
-      </ContactUsDescription>
-    </ContactUsSection>
-  )
+const NavigationItems = () => (
+  <ThemeContext.Consumer>
+    {value => {
+      const {isDark} = value
 
-  render() {
-    return (
-      <ThemeContext.Consumer>
-        {value => {
-          const {isDark} = value
-
-          return (
-            <LeftNavigationContainer isDark={isDark}>
-              {this.renderNavigationItemsContainer(isDark)}
-              {this.renderContactUsSection(isDark)}
-            </LeftNavigationContainer>
-          )
-        }}
-      </ThemeContext.Consumer>
-    )
-  }
-}
+      return (
+        <LeftNavigationContainer isDark={isDark}>
+          {renderNavigationItemsContainer()}
+          {renderContactUsSection(isDark)}
+        </LeftNavigationContainer>
+      )
+    }}
+  </ThemeContext.Consumer>
+)
 
 export default withRouter(NavigationItems)

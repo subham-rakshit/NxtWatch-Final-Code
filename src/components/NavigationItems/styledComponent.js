@@ -1,7 +1,5 @@
 import styled from 'styled-components'
 
-// **** Home LEFT --> ****
-
 export const LeftNavigationContainer = styled.div`
   width: 20%;
   display: flex;
@@ -9,7 +7,6 @@ export const LeftNavigationContainer = styled.div`
   justify-content: space-between;
   background-color: ${props => (props.isDark ? '#231f20' : '#f1f5f9')};
   padding-bottom: 20px;
-  //   border: 1px solid blue;
   @media screen and (max-width: 767px) {
     display: none;
   }
@@ -23,7 +20,6 @@ export const NavigationItemsContainer = styled.ul`
   display: flex;
   flex-direction: column;
   margin-top: 0;
-  //   border: 1px solid red;
 `
 export const NavItem = styled.li`
   background-color: ${props => props.bgColor};
@@ -47,7 +43,6 @@ export const ContactUsSection = styled.div`
   flex-direction: column;
   padding: 0 12px;
   gap: 15px;
-  //   border: 1px solid red;
 `
 export const ContactUsHeading = styled.p`
   color: ${props => (props.isDark ? '#cbd5e1' : '#1e293b')};

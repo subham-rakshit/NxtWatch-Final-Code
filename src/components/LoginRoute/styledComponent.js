@@ -17,7 +17,7 @@ export const LoginContentCard = styled.div`
   box-shadow: ${props => (props.isDark ? 'none' : '4px 4px 30px 10px #e2e8f0')};
   border-radius: 6px;
   background-color: ${props => (props.isDark ? '#0f0f0f' : '#ffffff')};
-  //   border: 1px solid red;
+
   @media screen and (max-width: 767px) {
     padding: 30px 0;
   }
@@ -34,7 +34,6 @@ export const FormContainer = styled.form`
   width: 85%;
   display: flex;
   flex-direction: column;
-  //   border: 1px solid red;
   @media screen and (max-width: 767px) {
     width: 90%;
   }

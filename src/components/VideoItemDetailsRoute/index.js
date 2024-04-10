@@ -1,35 +1,18 @@
 import {Component} from 'react'
 
 import Cookies from 'js-cookie'
-import ReactPlayer from 'react-player'
-import Loader from 'react-loader-spinner'
-import {formatDistanceToNow} from 'date-fns'
 
-import {BiLike, BiDislike} from 'react-icons/bi'
-import {MdPlaylistAdd} from 'react-icons/md'
-import {BsDot} from 'react-icons/bs'
+import Loader from 'react-loader-spinner'
 
 import Header from '../Header'
 import VideoItemDetailsNavigationItems from '../VideoItemDetailsNavigationItems'
 import ApiFailureView from '../ApiFailureView'
+import VideoItemDetailsVideoSection from '../VideoItemDetailsVideoSection'
 
 import {
   VideoItemDetailsMainContainer,
   VideoItemDetailsContentContainer,
   VideoItemDetailsRightContainer,
-  VideoContainer,
-  VideoItemDetailsTitle,
-  ViewsAndLikeDislikeContainer,
-  ViewsAndPublishedContainer,
-  ViewsAndPublishedText,
-  LikeDislikeAndSaveContainer,
-  ReviewButtons,
-  BreakingLine,
-  VideoDetailsContainer,
-  ChannelLogo,
-  ChannelName,
-  SubscriberCount,
-  ChannelDescription,
 } from './styledComponent'
 
 import ThemeContext from '../../context/ThemeContext'
@@ -49,14 +32,13 @@ class VideoItemDetailsRoute extends Component {
     videoItemDetails: {},
     isLikeClicked: false,
     isDislikeClicked: false,
-    isSaveActiveInitial: false,
-    isSaveActiveLater: true,
   }
 
   componentDidMount() {
     this.getVideoItemDetailsData()
   }
 
+  // VideoItemDetails Data API Call Start -->
   getVideoItemDetailsData = async () => {
     this.setState({apiStatus: apiStatusConstant.inProgress})
 
@@ -101,148 +83,38 @@ class VideoItemDetailsRoute extends Component {
       this.setState({apiStatus: apiStatusConstant.failure})
     }
   }
+  // VideoItemDetails Data API Call End -->
 
-  renderVideoItemDetailsSuccessView = () => {
-    const {
-      videoItemDetails,
-      isLikeClicked,
-      isDislikeClicked,
-      isSaveActiveInitial,
-      isSaveActiveLater,
-    } = this.state
-    // console.log(videoItemDetails)
-
-    const publishedTime = formatDistanceToNow(
-      new Date(videoItemDetails.videoDetails.publishedAt),
-    )
-    const timeList = publishedTime.split(' ')
-    const updatedPublishedTime = `${timeList[1]} ${timeList[2]} ago`
-    // console.log(updatedPublishedTime)
-
-    return (
-      <ThemeContext.Consumer>
-        {value => {
-          const {isDark, updateVideoList, isSaveBtnClicked, saveVideoId} = value
-
-          const onClickedLikeButton = () => {
-            this.setState({
-              isLikeClicked: !isLikeClicked,
-              isDislikeClicked: false,
-            })
-          }
-
-          const onClickedDislikeButton = () => {
-            this.setState({
-              isDislikeClicked: !isDislikeClicked,
-              isLikeClicked: false,
-            })
-          }
-
-          const callingUpdateVideoList = () => {
-            updateVideoList(videoItemDetails)
-          }
-
-          const onClickedSaveButton = () => {
-            if (saveVideoId !== '') {
-              this.setState(
-                {isSaveActiveLater: !isSaveActiveLater},
-                callingUpdateVideoList,
-              )
-            } else {
-              this.setState(
-                {
-                  isSaveActiveInitial: !isSaveActiveInitial,
-                },
-                callingUpdateVideoList,
-              )
-            }
-          }
-
-          let active
-          if (saveVideoId !== '') {
-            active = isSaveActiveLater
-          } else {
-            active = isSaveActiveInitial
-          }
-
-          return (
-            <>
-              <VideoContainer>
-                <ReactPlayer
-                  url={videoItemDetails.videoDetails.videoUrl}
-                  width="100%"
-                  height="100%"
-                  controls
-                />
-              </VideoContainer>
-              <VideoItemDetailsTitle isDark={isDark}>
-                {videoItemDetails.videoDetails.title}
-              </VideoItemDetailsTitle>
-              <ViewsAndLikeDislikeContainer>
-                <ViewsAndPublishedContainer>
-                  <ViewsAndPublishedText isDark={isDark}>
-                    {videoItemDetails.videoDetails.viewCount} views
-                  </ViewsAndPublishedText>
-                  <BsDot size="20" color="#475569" />
-                  <ViewsAndPublishedText isDark={isDark}>
-                    {updatedPublishedTime}
-                  </ViewsAndPublishedText>
-                </ViewsAndPublishedContainer>
-                <LikeDislikeAndSaveContainer>
-                  <ReviewButtons
-                    type="button"
-                    isDark={isDark}
-                    onClick={onClickedLikeButton}
-                    color={isLikeClicked ? '#2563eb' : '#64748b'}
-                  >
-                    <BiLike size="18" />
-                    Like
-                  </ReviewButtons>
-                  <ReviewButtons
-                    type="button"
-                    isDark={isDark}
-                    onClick={onClickedDislikeButton}
-                    color={isDislikeClicked ? '#2563eb' : '#64748b'}
-                  >
-                    <BiDislike size="18" />
-                    Dislike
-                  </ReviewButtons>
-                  <ReviewButtons
-                    type="button"
-                    isDark={isDark}
-                    onClick={onClickedSaveButton}
-                    color={active ? '#2563eb' : '#64748b'}
-                  >
-                    <MdPlaylistAdd size="18" />
-                    {active ? 'Saved' : 'Save'}
-                  </ReviewButtons>
-                </LikeDislikeAndSaveContainer>
-              </ViewsAndLikeDislikeContainer>
-              <BreakingLine isDark={isDark} />
-              <VideoDetailsContainer>
-                <ChannelLogo
-                  src={videoItemDetails.videoDetails.profileImageUrl}
-                  alt="channel logo"
-                />
-                <div>
-                  <ChannelName isDark={isDark}>
-                    {videoItemDetails.videoDetails.name}
-                  </ChannelName>
-                  <SubscriberCount isDark={isDark}>
-                    {videoItemDetails.videoDetails.subscriberCount} subscribers
-                  </SubscriberCount>
-                </div>
-              </VideoDetailsContainer>
-              <ChannelDescription isDark={isDark}>
-                {videoItemDetails.videoDetails.description}
-              </ChannelDescription>
-            </>
-          )
-        }}
-      </ThemeContext.Consumer>
-    )
+  // After Data fetch VideoItemDetails UI Success View Start -->
+  clickedLike = () => {
+    this.setState(prevState => ({
+      isLikeClicked: !prevState.isLikeClicked,
+      isDislikeClicked: false,
+    }))
   }
 
+  clickedDisLike = () => {
+    this.setState(prevState => ({
+      isDislikeClicked: !prevState.isDislikeClicked,
+      isLikeClicked: false,
+    }))
+  }
+
+  renderVideoItemDetailsSuccessView = () => {
+    const {videoItemDetails, isLikeClicked, isDislikeClicked} = this.state
+    return (
+      <VideoItemDetailsVideoSection
+        videoItemDetails={videoItemDetails}
+        clickedLike={this.clickedLike}
+        clickedDisLike={this.clickedDisLike}
+        isLikeClicked={isLikeClicked}
+        isDislikeClicked={isDislikeClicked}
+      />
+    )
+  }
+  // After Data fetch VideoItemDetails UI Success View End -->
+
+  // After Data fetch VideoItemDetails UI Failure View Start -->
   onClickedAPIRetry = () => {
     this.getVideoItemDetailsData()
   }
@@ -250,7 +122,9 @@ class VideoItemDetailsRoute extends Component {
   renderVideoItemDetailsFailureView = () => (
     <ApiFailureView onClickedAPIRetry={this.onClickedAPIRetry} />
   )
+  // After Data fetch VideoItemDetails UI Failure View End -->
 
+  // After Data fetch VideoItemDetails UI Loading View Start -->
   renderInProgressView = () => (
     <ThemeContext.Consumer>
       {value => {
@@ -269,6 +143,7 @@ class VideoItemDetailsRoute extends Component {
       }}
     </ThemeContext.Consumer>
   )
+  // After Data fetch VideoItemDetails UI Loading View End -->
 
   renderVideoItemDetailsViews = () => {
     const {apiStatus} = this.state
@@ -290,14 +165,14 @@ class VideoItemDetailsRoute extends Component {
       <ThemeContext.Consumer>
         {value => {
           const {isDark} = value
-
+          const bgColor = isDark ? '#0f0f0f' : '#f9f9f9'
           return (
             <VideoItemDetailsMainContainer>
               <Header />
               <VideoItemDetailsContentContainer>
                 <VideoItemDetailsNavigationItems />
                 <VideoItemDetailsRightContainer
-                  isDark={isDark}
+                  bgColor={bgColor}
                   data-testid="videoItemDetails"
                 >
                   {this.renderVideoItemDetailsViews()}

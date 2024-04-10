@@ -36,7 +36,7 @@ import {
 const SavedVideosRoute = () => (
   <ThemeContext.Consumer>
     {value => {
-      const {isDark, saveVideoList, updateVideoSavedStatus} = value
+      const {isDark, saveVideoList} = value
 
       const renderListOfSaveVideos = () => (
         <SaveVideoListsContainer>
@@ -46,15 +46,12 @@ const SavedVideosRoute = () => (
             )
             const timeList = timesTime.split(' ')
             const timeDistance = `${timeList[1]} ${timeList[2]} ago`
-            const changeSaveVideoStatus = () => {
-              updateVideoSavedStatus(eachItem.videoDetails.id)
-            }
+
             return (
               <Link
                 to={`/videos/${eachItem.videoDetails.id}`}
                 className="save-video-link"
                 key={eachItem.videoDetails.id}
-                onClick={changeSaveVideoStatus}
               >
                 <SaveVideoItemContainer>
                   <SaveVideoThumbnailImg
@@ -62,7 +59,6 @@ const SavedVideosRoute = () => (
                     alt="video thumbnail"
                   />
 
-                  {/* Video Details in desktop version Start ---> */}
                   <VideoDetailsContainer>
                     <ChannelLogoInMobile
                       src={eachItem.videoDetails.profileImageUrl}
@@ -89,7 +85,6 @@ const SavedVideosRoute = () => (
                       </SaveVideoViewsContainer>
                     </div>
                   </VideoDetailsContainer>
-                  {/* Video Details in desktop version End ---> */}
                 </SaveVideoItemContainer>
               </Link>
             )

@@ -41,6 +41,7 @@ class GamingRoute extends Component {
     this.getGamingVideosData()
   }
 
+  //   Gaming Route API Call Start -->
   getGamingVideosData = async () => {
     this.setState({apiStatus: apiStatusConstant.inProgress})
 
@@ -72,15 +73,18 @@ class GamingRoute extends Component {
       this.setState({apiStatus: apiStatusConstant.failure})
     }
   }
+  //   Gaming Route API Call End -->
 
   render() {
     const {apiStatus} = this.state
     const isApiFailure = apiStatus === apiStatusConstant.failure
     return (
+      // Data extract from Context -->
       <ThemeContext.Consumer>
         {value => {
           const {isDark} = value
 
+          // After Fetching Data from API Success View Start -->
           const renderGamingVideoListsSuccessView = () => {
             const {gamingVideosList} = this.state
 
@@ -108,7 +112,9 @@ class GamingRoute extends Component {
               </GamingVideoListsContainer>
             )
           }
+          // After Fetching Data from API Success View End -->
 
+          // After Fetching Data from API Loading View Start -->
           const renderGamingVideoListsInProgressView = () => (
             <div className="loader-container" data-testid="loader">
               <Loader
@@ -119,7 +125,9 @@ class GamingRoute extends Component {
               />
             </div>
           )
+          // After Fetching Data from API Loading View End -->
 
+          // After Fetching Data from API Failure View Start -->
           const onClickedAPIRetry = () => {
             this.getGamingVideosData()
           }
@@ -127,7 +135,9 @@ class GamingRoute extends Component {
           const renderGamingVideoListsFailureView = () => (
             <ApiFailureView onClickedAPIRetry={onClickedAPIRetry} />
           )
+          // After Fetching Data from API Failure View End -->
 
+          // After Fetching Data from API Call Views Functions by switch cases --
           const renderGamingVideosListViews = () => {
             switch (apiStatus) {
               case apiStatusConstant.success:
@@ -143,9 +153,12 @@ class GamingRoute extends Component {
 
           return (
             <GamingMainContainer>
+              {/* Header Route Call --> */}
               <Header />
               <GamingContentContainer>
+                {/* Navigation Side Bar Call --> */}
                 <NavigationItems />
+                {/* GamingRoute Main Content Start --> */}
                 <GamingVideosRightContainer
                   isDark={isDark}
                   data-testid="gaming"
@@ -163,6 +176,7 @@ class GamingRoute extends Component {
                   </GamingVideoHeader>
                   {renderGamingVideosListViews()}
                 </GamingVideosRightContainer>
+                {/* GamingRoute Main Content End --> */}
               </GamingContentContainer>
             </GamingMainContainer>
           )

@@ -8,12 +8,10 @@ export const NotFoundContentContainer = styled.div`
   height: 90%;
   display: flex;
   margin: auto;
-  //   border: 1px solid red;
 `
 export const NotFoundRightContainer = styled.div`
   height: 100%;
   width: 80%;
-  //   border: 1px solid red;
   padding: 20px 30px;
   display: flex;
   flex-direction: column;

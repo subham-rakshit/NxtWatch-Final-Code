@@ -2,25 +2,24 @@ import styled from 'styled-components'
 
 export const GamingMainContainer = styled.div`
   height: 100vh;
-  //   border: 1px solid red;
 `
 export const GamingContentContainer = styled.div`
   height: 90%;
   display: flex;
-  //   border: 1px solid red;
 `
+// Gaming Route Main Content Style Start ****
+
 export const GamingVideosRightContainer = styled.div`
   width: 80%;
   height: 100%;
   overflow: auto;
   background-color: ${props => (props.isDark ? '#0f0f0f' : '#f9f9f9')};
-  //   border: 1px solid red;
+
   @media screen and (max-width: 767px) {
     width: 100%;
   }
   @media screen and (min-width: 992px) {
     width: 84%;
-    // border: 1px solid red;
   }
   ::-webkit-scrollbar {
     display: none;
@@ -34,7 +33,7 @@ export const GamingVideoHeader = styled.div`
   align-items: center;
   padding: 15px 0;
   margin-bottom: 20px;
-  //   border: 1px solid black;
+
   @media screen and (max-width: 767px) {
     margin-bottom: 10px;
   }
@@ -44,7 +43,6 @@ export const HeaderContentArea = styled.div`
   display: flex;
   align-items: center;
   gap: 20px;
-  //   border: 1px solid red;
 `
 export const LogoContainer = styled.div`
   border-radius: 50%;
@@ -72,7 +70,6 @@ export const GamingVideoListsContainer = styled.ul`
   gap: 30px;
   margin: auto;
   margin-bottom: 20px;
-  //   border: 1px solid blue;
   @media screen and (max-width: 767px) and (min-width: 576px) {
     gap: 20px;
   }
@@ -86,7 +83,6 @@ export const GamingVideoItemContainer = styled.li`
   display: flex;
   flex-direction: column;
   cursor: pointer;
-  //   border: 1px solid red;
   @media screen and (max-width: 767px) and (min-width: 576px) {
     width: 200px;
     height: 350px;
@@ -126,3 +122,4 @@ export const GamingVideoViewCount = styled.p`
     font-size: 13px;
   }
 `
+// Gaming Route Main Content Style End ****

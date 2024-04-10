@@ -48,6 +48,7 @@ class TrendingRoute extends Component {
     this.getTrendingVideosData()
   }
 
+  // Trending Videos Data API Call Start -->
   getTrendingVideosData = async () => {
     this.setState({apiStatus: apiStatusConstant.inProgress})
 
@@ -82,6 +83,7 @@ class TrendingRoute extends Component {
       this.setState({apiStatus: apiStatusConstant.failure})
     }
   }
+  // Trending Videos Data API Call End -->
 
   render() {
     const {trendingVideosData, apiStatus} = this.state
@@ -91,6 +93,7 @@ class TrendingRoute extends Component {
         {value => {
           const {isDark} = value
 
+          // After Data fetch Trending Video UI Failure View Start -->
           const onClickedAPIRetry = () => {
             this.getTrendingVideosData()
           }
@@ -98,7 +101,9 @@ class TrendingRoute extends Component {
           const renderTrendingVideoFailureView = () => (
             <ApiFailureView onClickedAPIRetry={onClickedAPIRetry} />
           )
+          // After Data fetch Trending Video UI Failure View End -->
 
+          // After Data fetch Trending Video UI Loading View Start -->
           const renderTrendingVideoContentInProgressView = () => (
             <div className="loader-container" data-testid="loader">
               <Loader
@@ -109,7 +114,9 @@ class TrendingRoute extends Component {
               />
             </div>
           )
+          // After Data fetch Trending Video UI Loading View End -->
 
+          // After Data fetch Trending Video UI Success View Start -->
           const renderTrendingVideosSuccessView = () => (
             <TrendingVideoListsContainer>
               {trendingVideosData.map(eachItem => {
@@ -164,6 +171,7 @@ class TrendingRoute extends Component {
               })}
             </TrendingVideoListsContainer>
           )
+          // After Data fetch Trending Video UI Success View End -->
 
           const renderListOfTrendingVideos = () => {
             switch (apiStatus) {

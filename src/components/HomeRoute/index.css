@@ -1,13 +1,10 @@
 .loader-container {
-  /* background-color: red; */
-  /* height: 100%; */
   display: flex;
   justify-content: center;
   align-items: center;
 }
 .home-link {
   text-decoration: none;
-  /* border: 1px solid red; */
 }
 @media screen and (max-width: 575px) {
   .home-link {

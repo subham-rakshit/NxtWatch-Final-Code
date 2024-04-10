@@ -2,25 +2,22 @@ import styled from 'styled-components'
 
 export const TrendingMainContainer = styled.div`
   height: 100vh;
-  //   border: 1px solid red;
 `
 export const TrendingContentContainer = styled.div`
   height: 90%;
   display: flex;
-  //   border: 1px solid red;
 `
 export const TrendingVideosRightContainer = styled.div`
   width: 80%;
   height: 100%;
   overflow: auto;
   background-color: ${props => (props.isDark ? '#0f0f0f' : '#f9f9f9')};
-  //   border: 1px solid red;
+
   @media screen and (max-width: 767px) {
     width: 100%;
   }
   @media screen and (min-width: 992px) {
     width: 84%;
-    // border: 1px solid red;
   }
   ::-webkit-scrollbar {
     display: none;
@@ -34,7 +31,6 @@ export const TrendingVideoHeader = styled.div`
   align-items: center;
   padding: 15px 0;
   margin-bottom: 20px;
-  //   border: 1px solid black;
   @media screen and (max-width: 767px) {
     margin-bottom: 10px;
   }
@@ -44,7 +40,6 @@ export const HeaderContentArea = styled.div`
   display: flex;
   align-items: center;
   gap: 20px;
-  //   border: 1px solid red;
 `
 export const LogoContainer = styled.div`
   border-radius: 50%;
@@ -72,7 +67,6 @@ export const TrendingVideoListsContainer = styled.ul`
   gap: 30px;
   margin: auto;
   margin-bottom: 20px;
-  //   border: 1px solid blue;
   @media screen and (max-width: 575px) {
     width: 100%;
   }
@@ -81,7 +75,6 @@ export const TrendingVideoItemContainer = styled.li`
   display: flex;
   gap: 20px;
   cursor: pointer;
-  //   border: 1px solid red;
   @media screen and (max-width: 575px) {
     flex-direction: column;
   }
@@ -101,10 +94,8 @@ export const TrendingVideoThumbnailImg = styled.img`
   }
 `
 
-// Video Details in Desktop Starts -->
 export const TrendingVideoDetailsContainer = styled.div`
   width: 100%;
-  //   border: 1px solid red;
   @media screen and (max-width: 575px) {
     display: flex;
     gap: 15px;
@@ -121,14 +112,12 @@ export const TrendingVideoTitle = styled.p`
   margin-top: 0;
   line-height: 1.5;
   margin-bottom: 0;
-  //   border: 1px solid red;
   @media screen and (max-width: 575px) {
     width: 100%;
     font-size: 16px;
     line-height: 1.2;
   }
   @media screen and (max-width: 991px) and (min-width: 576px) {
-    // border: 1px solid red;
     font-size: 18px;
     width: 100%;
     line-height: 1.5;
@@ -154,7 +143,6 @@ export const TrendingVideoViews = styled.p`
   font-size: 14px;
   font-weight: 400;
   font-family: 'Roboto';
-  //   border: 1px solid red;
 `
 
 export const ChannelLogoInMobile = styled.img`
@@ -165,4 +153,3 @@ export const ChannelLogoInMobile = styled.img`
     height: 40px;
   }
 `
-// Video Details in Desktop End -->
