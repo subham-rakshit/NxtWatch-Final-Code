@@ -209,13 +209,18 @@ export const VideoChannelName = styled.p`
   margin-top: 10px;
   margin-bottom: 0;
 `
-
+export const ViewsContainer = styled.div`
+  display: flex;
+  align-items: center;
+  @media screen and (max-width: 575px) {
+    margin-bottom: 10px;
+  }
+`
 export const VideoViews = styled.p`
   color: ${props => (props.isDark ? '#94a3b8' : '#475569')};
   font-size: 13px;
   font-weight: 400;
   font-family: 'Roboto';
-  margin-top: 8px;
   display: flex;
   align-items: center;
 `
